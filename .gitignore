@@ -5,3 +5,44 @@ __pycache__/
 *.pyc
 .DS_Store
 .ipynb_checkpoints/
+
+# Secrets
+.env*
+*.pem
+*.key
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+kaggle.json
+.kaggle/
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+*.db-*
+*.sqlite-*
+*.sqlite3-*
+
+# Data at any depth
+raw/
+processed/
+extracted/
+
+# Model and run artifacts
+models/
+*.pkl
+*.joblib
+catboost_info/
+mlruns/
+wandb/
+lightning_logs/
+
+# Tooling
+.venv*/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.idea/
+.vscode/
