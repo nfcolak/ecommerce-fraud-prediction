@@ -1,0 +1,87 @@
+{
+  "model": "lgbm_fe3_graph",
+  "split": {
+    "train": {
+      "n_rows": 385712,
+      "n_fraud": 13188,
+      "fraud_rate": 0.03419131372630356,
+      "dt_min": 86400,
+      "dt_max": 9666972
+    },
+    "valid": {
+      "n_rows": 68067,
+      "n_fraud": 2806,
+      "fraud_rate": 0.04122408803091072,
+      "dt_min": 9666974,
+      "dt_max": 11588050
+    },
+    "test": {
+      "n_rows": 118108,
+      "n_fraud": 4064,
+      "fraud_rate": 0.034409184813899145,
+      "dt_min": 12192900,
+      "dt_max": 15811131
+    }
+  },
+  "selection": {
+    "candidates": {
+      "A_hist": {
+        "valid_pr_auc_per_seed": [
+          0.6971948172029657,
+          0.6945652447148578,
+          0.6868378995251235
+        ],
+        "valid_pr_auc_mean": 0.6928659871476489,
+        "valid_pr_auc_sd": 0.005383497297871271,
+        "n_features": 483,
+        "source": "committed lgbm_fe2"
+      },
+      "A_hist_noall": {
+        "valid_pr_auc_per_seed": [
+          0.6955383917822189,
+          0.6428701627089892,
+          0.694395127649676
+        ],
+        "valid_pr_auc_mean": 0.6776012273802947,
+        "valid_pr_auc_sd": 0.030083415748897148,
+        "n_features": 480,
+        "best_iteration_per_seed": [
+          2599,
+          155,
+          2467
+        ]
+      },
+      "A_hist_noall_graph": {
+        "valid_pr_auc_per_seed": [
+          0.6874589350323327,
+          0.6884502052757802,
+          0.6844337945627252
+        ],
+        "valid_pr_auc_mean": 0.6867809782902793,
+        "valid_pr_auc_sd": 0.0020922733478341803,
+        "n_features": 488,
+        "best_iteration_per_seed": [
+          2302,
+          1731,
+          1457
+        ]
+      }
+    },
+    "best_on_valid": "A_hist"
+  },
+  "graph_features": [
+    "fp_nuniq_uid_7d",
+    "card1_addr1_nuniq_uid_7d",
+    "addr1_nuniq_uid_7d",
+    "fp_nuniq_uid_30d",
+    "card1_addr1_nuniq_uid_30d",
+    "addr1_nuniq_uid_30d",
+    "uid_nuniq_fp_30d",
+    "uid_fp_component_size"
+  ],
+  "dropped_noall": [
+    "P_emaildomain_cnt_all",
+    "card1_cnt_all",
+    "card1_addr1_cnt_all"
+  ]
+}
