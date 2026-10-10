@@ -1,0 +1,43 @@
+{
+  "git_sha": "ebec2e8c9903cdf2110cfd2d6c820274827440e9",
+  "versions": {
+    "python": "3.12.13",
+    "lightgbm": "4.7.0",
+    "pandas": "3.0.6",
+    "numpy": "2.5.3",
+    "scikit-learn": "1.9.1",
+    "pyarrow": "26.0.0"
+  },
+  "params": {
+    "objective": "binary",
+    "metric": "average_precision",
+    "seed": 42,
+    "learning_rate": 0.05,
+    "num_leaves": 256,
+    "min_child_samples": 100,
+    "feature_fraction": 0.5,
+    "bagging_fraction": 0.8,
+    "bagging_freq": 1,
+    "n_jobs": 12,
+    "verbosity": -1,
+    "scale_pos_weight": 28.0,
+    "max_rounds": 5000,
+    "early_stopping_rounds": 100
+  },
+  "best_iteration": 2822,
+  "stopped_later_than_prior": false,
+  "hit_max_rounds": false,
+  "n_features": 483,
+  "train_stage": {
+    "fit_seconds": 264.9,
+    "runtime_seconds": 287.6,
+    "peak_rss_mb": 8202.8
+  },
+  "analyze_stage": {
+    "runtime_seconds": 47.4,
+    "peak_rss_mb": 8214.5,
+    "shap_seconds": 33.7
+  },
+  "runtime_seconds": 335.0,
+  "peak_rss_mb": 8214.5
+}

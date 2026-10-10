@@ -1,0 +1,251 @@
+{
+  "folds": [
+    {
+      "score_start_day": 63,
+      "score_end_day": 83,
+      "train_days": [
+        1,
+        55
+      ],
+      "es_days": [
+        42,
+        55
+      ],
+      "n_train": 209660,
+      "n_fraud_train": 6333,
+      "n_fit": 169243,
+      "n_es": 40417,
+      "share_train_after_day30": 0.3592530764094248,
+      "n_score": 64287,
+      "n_fraud_score": 2599,
+      "baseline": {
+        "pr_auc": 0.5612560367777706,
+        "roc_auc": 0.8961178350171991,
+        "fraud_rate": 0.040428080327282345,
+        "n_rows": 64287,
+        "precision_at_top_1pct": 0.9502332814930016,
+        "recall_at_top_1pct": 0.23509041939207387,
+        "precision_at_top_5pct": 0.4503888024883359,
+        "recall_at_top_5pct": 0.5571373605232782,
+        "best_iteration": 131,
+        "fit_seconds": 34.1
+      },
+      "final": {
+        "pr_auc": 0.5953794911990264,
+        "roc_auc": 0.8806287360805202,
+        "fraud_rate": 0.040428080327282345,
+        "n_rows": 64287,
+        "precision_at_top_1pct": 0.9657853810264385,
+        "recall_at_top_1pct": 0.23893805309734514,
+        "precision_at_top_5pct": 0.4821150855365474,
+        "recall_at_top_5pct": 0.596383224317045,
+        "best_iteration": 1093,
+        "fit_seconds": 186.1
+      },
+      "delta_pr_auc": 0.03412345442125586,
+      "delta_p_at_1pct": 0.015552099533436947
+    },
+    {
+      "score_start_day": 87,
+      "score_end_day": 107,
+      "train_days": [
+        1,
+        79
+      ],
+      "es_days": [
+        66,
+        79
+      ],
+      "n_train": 283222,
+      "n_fraud_train": 9507,
+      "n_fit": 241407,
+      "n_es": 41815,
+      "share_train_after_day30": 0.5256759714993892,
+      "n_score": 70884,
+      "n_fraud_score": 2481,
+      "baseline": {
+        "pr_auc": 0.5164416323513938,
+        "roc_auc": 0.8774768853788331,
+        "fraud_rate": 0.03500084645336042,
+        "n_rows": 70884,
+        "precision_at_top_1pct": 0.8984485190409027,
+        "recall_at_top_1pct": 0.25675130995566303,
+        "precision_at_top_5pct": 0.3830747531734838,
+        "recall_at_top_5pct": 0.547359935509875,
+        "best_iteration": 1043,
+        "fit_seconds": 174.7
+      },
+      "final": {
+        "pr_auc": 0.5325097533607046,
+        "roc_auc": 0.8816999164852976,
+        "fraud_rate": 0.03500084645336042,
+        "n_rows": 70884,
+        "precision_at_top_1pct": 0.922425952045134,
+        "recall_at_top_1pct": 0.26360338573155984,
+        "precision_at_top_5pct": 0.3861777150916784,
+        "recall_at_top_5pct": 0.5517936316001613,
+        "best_iteration": 1368,
+        "fit_seconds": 228.7
+      },
+      "delta_pr_auc": 0.016068121009310765,
+      "delta_p_at_1pct": 0.023977433004231274
+    },
+    {
+      "score_start_day": 111,
+      "score_end_day": 131,
+      "train_days": [
+        1,
+        103
+      ],
+      "es_days": [
+        90,
+        103
+      ],
+      "n_train": 362483,
+      "n_fraud_train": 12241,
+      "n_fit": 312574,
+      "n_es": 49909,
+      "share_train_after_day30": 0.6293922749480665,
+      "n_score": 64877,
+      "n_fraud_score": 2626,
+      "baseline": {
+        "pr_auc": 0.6214982741206182,
+        "roc_auc": 0.9130658951966845,
+        "fraud_rate": 0.040476594170507266,
+        "n_rows": 64877,
+        "precision_at_top_1pct": 0.9183359013867488,
+        "recall_at_top_1pct": 0.22696115765422697,
+        "precision_at_top_5pct": 0.5046239210850801,
+        "recall_at_top_5pct": 0.6233815689261234,
+        "best_iteration": 1360,
+        "fit_seconds": 232.9
+      },
+      "final": {
+        "pr_auc": 0.6361504015734591,
+        "roc_auc": 0.915100070944639,
+        "fraud_rate": 0.040476594170507266,
+        "n_rows": 64877,
+        "precision_at_top_1pct": 0.9198767334360555,
+        "recall_at_top_1pct": 0.22734196496572734,
+        "precision_at_top_5pct": 0.5258939580764488,
+        "recall_at_top_5pct": 0.6496572734196496,
+        "best_iteration": 1536,
+        "fit_seconds": 266.8
+      },
+      "delta_pr_auc": 0.014652127452840946,
+      "delta_p_at_1pct": 0.0015408320493066618
+    }
+  ],
+  "label_delay": {
+    "B": {
+      "0": 0.6949933428746624,
+      "7": 0.41604470595846715,
+      "14": 0.3020844384809403,
+      "30": 0.18905063147660883
+    },
+    "A": {
+      "7": 0.667689438623287,
+      "14": 0.6512555073246206,
+      "30": 0.5908500820297999
+    },
+    "note": "valid PR-AUC; N=0 is the final model's value (results/final, full-valid early stopping). B: train rows in the last N days keep features, label 0. A: those rows dropped. Early stopping and evaluation on valid with unchanged labels.",
+    "details": {
+      "B7": {
+        "pr_auc": 0.41604470595846715,
+        "roc_auc": 0.8309595153439641,
+        "fraud_rate": 0.04122408803091072,
+        "n_rows": 68067,
+        "precision_at_top_1pct": 0.7254038179148311,
+        "recall_at_top_1pct": 0.17605131860299358,
+        "precision_at_top_5pct": 0.40658049353701525,
+        "recall_at_top_5pct": 0.4932287954383464,
+        "best_iteration": 50,
+        "n_train_rows_used": 385712,
+        "n_fraud_train_used": 12319,
+        "n_late_rows": 20754,
+        "n_late_fraud_true": 869,
+        "fit_seconds": 30.7
+      },
+      "B14": {
+        "pr_auc": 0.3020844384809403,
+        "roc_auc": 0.7460353095263088,
+        "fraud_rate": 0.04122408803091072,
+        "n_rows": 68067,
+        "precision_at_top_1pct": 0.6284875183553598,
+        "recall_at_top_1pct": 0.1525302922309337,
+        "precision_at_top_5pct": 0.33666274970622795,
+        "recall_at_top_5pct": 0.40841054882394867,
+        "best_iteration": 71,
+        "n_train_rows_used": 385712,
+        "n_fraud_train_used": 11601,
+        "n_late_rows": 42627,
+        "n_late_fraud_true": 1587,
+        "fit_seconds": 34.0
+      },
+      "B30": {
+        "pr_auc": 0.18905063147660883,
+        "roc_auc": 0.6471882904789468,
+        "fraud_rate": 0.04122408803091072,
+        "n_rows": 68067,
+        "precision_at_top_1pct": 0.5183553597650514,
+        "recall_at_top_1pct": 0.12580185317177478,
+        "precision_at_top_5pct": 0.21856639247943596,
+        "recall_at_top_5pct": 0.26514611546685674,
+        "best_iteration": 71,
+        "n_train_rows_used": 385712,
+        "n_fraud_train_used": 9667,
+        "n_late_rows": 97977,
+        "n_late_fraud_true": 3521,
+        "fit_seconds": 35.0
+      },
+      "A7": {
+        "pr_auc": 0.667689438623287,
+        "roc_auc": 0.9271787696321049,
+        "fraud_rate": 0.04122408803091072,
+        "n_rows": 68067,
+        "precision_at_top_1pct": 0.9177679882525698,
+        "recall_at_top_1pct": 0.22273699215965787,
+        "precision_at_top_5pct": 0.554641598119859,
+        "recall_at_top_5pct": 0.6728439059158945,
+        "best_iteration": 1348,
+        "n_train_rows_used": 364958,
+        "n_fraud_train_used": 12319,
+        "n_late_rows": 20754,
+        "n_late_fraud_true": 869,
+        "fit_seconds": 175.9
+      },
+      "A14": {
+        "pr_auc": 0.6512555073246206,
+        "roc_auc": 0.9218415570275015,
+        "fraud_rate": 0.04122408803091072,
+        "n_rows": 68067,
+        "precision_at_top_1pct": 0.9177679882525698,
+        "recall_at_top_1pct": 0.22273699215965787,
+        "precision_at_top_5pct": 0.5387779083431258,
+        "recall_at_top_5pct": 0.6535994297933001,
+        "best_iteration": 2452,
+        "n_train_rows_used": 343085,
+        "n_fraud_train_used": 11601,
+        "n_late_rows": 42627,
+        "n_late_fraud_true": 1587,
+        "fit_seconds": 214.9
+      },
+      "A30": {
+        "pr_auc": 0.5908500820297999,
+        "roc_auc": 0.9058460505037379,
+        "fraud_rate": 0.04122408803091072,
+        "n_rows": 68067,
+        "precision_at_top_1pct": 0.908957415565345,
+        "recall_at_top_1pct": 0.22059871703492517,
+        "precision_at_top_5pct": 0.49618096357226793,
+        "recall_at_top_5pct": 0.6019244476122595,
+        "best_iteration": 857,
+        "n_train_rows_used": 287735,
+        "n_fraud_train_used": 9667,
+        "n_late_rows": 97977,
+        "n_late_fraud_true": 3521,
+        "fit_seconds": 79.5
+      }
+    }
+  }
+}
