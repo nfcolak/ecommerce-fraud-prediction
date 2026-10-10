@@ -1,0 +1,10 @@
+row index 432863 TransactionID 3419863 DT 10948932 day 126: 94 earlier same-fp rows in 7d, 17852 edges on days < 126
+  fp_nuniq_uid_7d            feature=81.000000 by_hand=81.000000 OK
+  uid_fp_component_size      feature=10335.000000 by_hand=10335.000000 OK
+row index 420771 TransactionID 3407771 DT 10644114 day 123: 29 earlier same-fp rows in 7d, 17671 edges on days < 123
+  fp_nuniq_uid_7d            feature=16.000000 by_hand=16.000000 OK
+  uid_fp_component_size      feature=10135.000000 by_hand=10135.000000 OK
+row index 445665 TransactionID 3432665 DT 11329631 day 131: 2 earlier same-fp rows in 7d, 18232 edges on days < 131
+  fp_nuniq_uid_7d            feature=2.000000 by_hand=2.000000 OK
+  uid_fp_component_size      feature=10.000000 by_hand=10.000000 OK
+ALL MATCH

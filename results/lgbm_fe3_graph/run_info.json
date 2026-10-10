@@ -1,0 +1,76 @@
+{
+  "git_sha": "3b3d4c8685a80ccc0890f75449c5369d540b9def",
+  "versions": {
+    "python": "3.12.13",
+    "lightgbm": "4.7.0",
+    "pandas": "3.0.6",
+    "numpy": "2.5.3",
+    "scikit-learn": "1.9.1",
+    "pyarrow": "26.0.0"
+  },
+  "params": {
+    "objective": "binary",
+    "metric": "average_precision",
+    "seed": 42,
+    "learning_rate": 0.05,
+    "num_leaves": 256,
+    "min_child_samples": 100,
+    "feature_fraction": 0.5,
+    "bagging_fraction": 0.8,
+    "bagging_freq": 1,
+    "n_jobs": 12,
+    "verbosity": -1,
+    "max_rounds": 3000,
+    "early_stopping_rounds": 100,
+    "seeds": [
+      42,
+      43,
+      44
+    ]
+  },
+  "graph_build_seconds": 4.5,
+  "top_graph_features_by_gain": [
+    {
+      "feature": "addr1_nuniq_uid_7d",
+      "gain": 13875.553229983609,
+      "split": 11637
+    },
+    {
+      "feature": "addr1_nuniq_uid_30d",
+      "gain": 13330.277118067272,
+      "split": 11068
+    },
+    {
+      "feature": "card1_addr1_nuniq_uid_30d",
+      "gain": 5571.585447901998,
+      "split": 5266
+    },
+    {
+      "feature": "fp_nuniq_uid_30d",
+      "gain": 4879.936523751248,
+      "split": 4041
+    },
+    {
+      "feature": "fp_nuniq_uid_7d",
+      "gain": 3941.803974417855,
+      "split": 3021
+    },
+    {
+      "feature": "card1_addr1_nuniq_uid_7d",
+      "gain": 3707.036469357461,
+      "split": 3657
+    },
+    {
+      "feature": "uid_nuniq_fp_30d",
+      "gain": 533.5393565060913,
+      "split": 404
+    },
+    {
+      "feature": "uid_fp_component_size",
+      "gain": 458.478980161919,
+      "split": 170
+    }
+  ],
+  "runtime_seconds": 934.6,
+  "peak_rss_mb": 9941.6
+}
