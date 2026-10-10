@@ -1,14 +1,19 @@
 """Fixed reference baselines (rule, logistic regression, isolation forest) on the time split.
 
 Run: python -m ecommerce_fraud.baselines  (PYTHONPATH=src)
+Only lr_raw_clip / lr_hist_clip: add --clip-only (DIAG_SCORES_DIR = models dir holding the
+lr_raw and iforest scores, for diagnostics.json).
 """
 from __future__ import annotations
 
 import gc
 import json
+import os
 import platform
 import resource
+import sys
 import time
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -19,7 +24,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
-from ecommerce_fraud.artifacts import save_artifacts
+from ecommerce_fraud.artifacts import models_dir, save_artifacts
 from ecommerce_fraud.baseline_lgbm import DROP, git_sha, metrics
 from ecommerce_fraud.data import WORKTREE, load_joined, time_split
 from ecommerce_fraud.features_history import add_history_features
@@ -71,7 +76,13 @@ def run_rule(parts, y):
     return res, scores
 
 
-def fit_transform(X, cols, cat_cols):
+def fit_transform(X, cols, cat_cols, clip=False):
+    lo = hi = None
+    if clip:  # train 1st-99th percentile, fitted on train only; NaN stays NaN
+        tr = X["train"][cols].to_numpy(np.float32)
+        lo, hi = (np.nan_to_num(v).astype(np.float32)
+                  for v in np.nanpercentile(tr, [1, 99], axis=0))
+        del tr
     imp = SimpleImputer(strategy="median")
     sc = StandardScaler()
     enc = OneHotEncoder(handle_unknown="ignore", dtype=np.float32)
@@ -83,16 +94,19 @@ def fit_transform(X, cols, cat_cols):
     enc.fit(cats("train"))
     mats = {}
     for k in ("train", "valid", "test"):
-        a = imp.fit_transform(X[k][cols].to_numpy(np.float32)) if k == "train" \
-            else imp.transform(X[k][cols].to_numpy(np.float32))
+        raw = X[k][cols].to_numpy(np.float32)
+        if clip:
+            raw = np.clip(raw, lo, hi)
+        a = imp.fit_transform(raw) if k == "train" else imp.transform(raw)
+        del raw
         a = sc.fit_transform(a) if k == "train" else sc.transform(a)
         mats[k] = sp.hstack([sp.csr_matrix(a.astype(np.float32)), enc.transform(cats(k))],
                             format="csr", dtype=np.float32)
     return mats
 
 
-def run_lr(X, y, cols, cat_cols, ids, name):
-    mats = fit_transform(X, cols, cat_cols)
+def run_lr(X, y, cols, cat_cols, ids, name, clip=False):
+    mats = fit_transform(X, cols, cat_cols, clip)
     clf = LogisticRegression(class_weight="balanced", max_iter=LR_MAX_ITER, solver="lbfgs", C=1.0)
     clf.fit(mats["train"], y["train"])
     res, scores = {}, {}
@@ -105,6 +119,8 @@ def run_lr(X, y, cols, cat_cols, ids, name):
                      "class_weight": "balanced", "n_numeric": len(cols),
                      "n_categorical": len(cat_cols),
                      "n_matrix_columns": int(mats["train"].shape[1])}
+    if clip:
+        res["params"]["clip"] = "numeric columns clipped to train 1st-99th percentile"
     save_artifacts(name, None, ids["valid"], scores["valid"], ids["test"], scores["test"])
     return res
 
@@ -125,7 +141,42 @@ def run_iforest(X, y, cols, ids):
     return res
 
 
+def top1_diag(score, y, day):
+    k = max(1, int(round(0.01 * len(score))))
+    idx = np.argsort(-score, kind="stable")[:k]
+    q = np.percentile(day[idx], [5, 50, 95])
+    return {"n_top": int(k), "top1pct_fraud_rate": float(y[idx].mean()),
+            "day_q05": float(q[0]), "day_q50": float(q[1]), "day_q95": float(q[2])}
+
+
+def run_clip(parts, y, ids, num_cols, hist_cols, cat_cols, t0):
+    """Run only lr_raw_clip / lr_hist_clip; merge into metrics.json, write diagnostics.json."""
+    mpath = OUT_DIR / "metrics.json"
+    allm = json.loads(mpath.read_text())
+    new = {"lr_raw_clip": run_lr(parts, y, num_cols, cat_cols, ids, "lr_raw_clip", clip=True)}
+    gc.collect()
+    new["lr_hist_clip"] = run_lr(parts, y, num_cols + hist_cols, cat_cols, ids, "lr_hist_clip",
+                                 clip=True)
+    for n, m in new.items():
+        allm["models"][n] = {"valid": m["valid"], "test": m["test"], "params": m["params"]}
+        print(n, round(m["valid"]["pr_auc"], 4), round(m["test"]["pr_auc"], 4), flush=True)
+    mpath.write_text(json.dumps(allm, indent=2) + "\n")
+    day = (parts["test"]["TransactionDT"].to_numpy() // 86400).astype(int)
+    diag = {"definition": "top 1% of test rows by score; day = TransactionDT // 86400"}
+    ref = Path(os.environ.get("DIAG_SCORES_DIR", ""))
+    for n in ("lr_raw", "lr_raw_clip", "iforest"):
+        f = (models_dir() if n == "lr_raw_clip" else ref) / n / "scores_test.parquet"
+        sc = pd.read_parquet(f).set_index("TransactionID")["score"].reindex(ids["test"])
+        assert sc.notna().all()
+        diag[n] = top1_diag(sc.to_numpy(), y["test"], day)
+        print(n, json.dumps(diag[n]), flush=True)
+    (OUT_DIR / "diagnostics.json").write_text(json.dumps(diag, indent=2) + "\n")
+    print(f"runtime {time.time() - t0:.0f}s peak_rss_mb "
+          f"{resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024**2:.0f}", flush=True)
+
+
 def main():
+    clip_only = "--clip-only" in sys.argv
     t0 = time.time()
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     df = load_joined()
@@ -152,6 +203,8 @@ def main():
     cat_cols = [c for c in obj_cols if train[c].nunique() <= MAX_LEVELS]
     print(f"{len(num_cols)} numeric, {len(obj_cols)} object, {len(cat_cols)} one-hot", flush=True)
 
+    if clip_only:
+        return run_clip(parts, y, ids, num_cols, hist_cols, cat_cols, t0)
     models = {}
     r, s = run_rule(parts, y)
     models["rule"] = r

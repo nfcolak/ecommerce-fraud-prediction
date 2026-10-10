@@ -139,6 +139,72 @@
         "n_numeric": 400,
         "fit_on": "train rows only"
       }
+    },
+    "lr_raw_clip": {
+      "valid": {
+        "pr_auc": 0.5072646831895173,
+        "roc_auc": 0.8757583849697529,
+        "fraud_rate": 0.04122408803091072,
+        "n_rows": 68067,
+        "precision_at_top_1pct": 0.8839941262848752,
+        "recall_at_top_1pct": 0.21454027084818247,
+        "precision_at_top_5pct": 0.4383078730904818,
+        "recall_at_top_5pct": 0.5317177476835353
+      },
+      "test": {
+        "pr_auc": 0.3938077912963815,
+        "roc_auc": 0.847189293668116,
+        "fraud_rate": 0.034409184813899145,
+        "n_rows": 118108,
+        "precision_at_top_1pct": 0.760575296108291,
+        "recall_at_top_1pct": 0.22121062992125984,
+        "precision_at_top_5pct": 0.32069082289197426,
+        "recall_at_top_5pct": 0.4660433070866142
+      },
+      "params": {
+        "max_iter": 1500,
+        "n_iter_used": 355,
+        "converged": true,
+        "C": 1.0,
+        "class_weight": "balanced",
+        "n_numeric": 400,
+        "n_categorical": 25,
+        "n_matrix_columns": 486,
+        "clip": "numeric columns clipped to train 1st-99th percentile"
+      }
+    },
+    "lr_hist_clip": {
+      "valid": {
+        "pr_auc": 0.4970500304600351,
+        "roc_auc": 0.878130091438421,
+        "fraud_rate": 0.04122408803091072,
+        "n_rows": 68067,
+        "precision_at_top_1pct": 0.8751835535976505,
+        "recall_at_top_1pct": 0.21240199572344975,
+        "precision_at_top_5pct": 0.418331374853114,
+        "recall_at_top_5pct": 0.5074839629365645
+      },
+      "test": {
+        "pr_auc": 0.384865467693612,
+        "roc_auc": 0.8448038922140702,
+        "fraud_rate": 0.034409184813899145,
+        "n_rows": 118108,
+        "precision_at_top_1pct": 0.7470389170896785,
+        "recall_at_top_1pct": 0.2172736220472441,
+        "precision_at_top_5pct": 0.31120894006095495,
+        "recall_at_top_5pct": 0.45226377952755903
+      },
+      "params": {
+        "max_iter": 1500,
+        "n_iter_used": 531,
+        "converged": true,
+        "C": 1.0,
+        "class_weight": "balanced",
+        "n_numeric": 452,
+        "n_categorical": 25,
+        "n_matrix_columns": 538,
+        "clip": "numeric columns clipped to train 1st-99th percentile"
+      }
     }
   },
   "split": {
