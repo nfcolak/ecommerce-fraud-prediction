@@ -42,3 +42,39 @@ Feature-set selection (validation PR-AUC, 3 seeds):
 | A_hist (chosen) | 0.6929 | 0.0054 | 483 |
 | B_hist_uidagg | 0.6652 | 0.0151 | 507 |
 | C_uidagg | 0.6744 | 0.0154 | 461 |
+
+## Phase 1 results
+
+### Reproducibility
+
+baseline_lgbm, lgbm_fe1 and lgbm_fe2 (A_hist, seed 42) retrain to identical best iteration and PR-AUC (`results/repro/repro.json`).
+
+### Reference baselines (fixed, scored on valid and test)
+
+Numbers are from `results/baselines/metrics.json`.
+
+| Model | Valid PR-AUC | Test PR-AUC | Test precision at top 1% |
+|---|---|---|---|
+| rule | 0.1021 | 0.0776 | 0.1988 |
+| lr_raw | 0.4952 | 0.1882 | 0.0956 |
+| lr_hist | 0.4810 | 0.1853 | 0.1168 |
+| lr_raw_clip | 0.5073 | 0.3938 | 0.7606 |
+| lr_hist_clip | 0.4971 | 0.3849 | 0.7470 |
+| iforest | 0.2395 | 0.1182 | 0.0000 |
+
+Unclipped linear models and Isolation Forest put their top 1% on a cluster of out-of-range transactions on days 163-173 (test top-1% fraud rate 0.0948 for lr_raw vs 0.7604 for lr_raw_clip, `results/baselines/diagnostics.json`), so values are clipped to the train 1st-99th percentile.
+
+### Feature and weighting experiments (validation only, 3 seeds, mean ± sd)
+
+Numbers are from `results/lgbm_fe3_graph/metrics.json` and `results/lgbm_cw/metrics.json`.
+
+| Candidate | Valid PR-AUC | n_features |
+|---|---|---|
+| A_hist (control) | 0.6929 ± 0.0054 | 483 |
+| A_hist_noall | 0.6776 ± 0.0301 | 480 |
+| A_hist_noall_graph | 0.6868 ± 0.0021 | 488 |
+| A_hist_nanfix | 0.6953 ± 0.0028 | 483 |
+| A_hist_nanfix, spw5 | 0.6960 ± 0.0014 | 483 |
+| A_hist_nanfix, spw28 | 0.6961 ± 0.0014 | 483 |
+
+All differences are within seed noise; by the pre-registered rule (highest mean valid PR-AUC) the final configuration is A_hist_nanfix with scale_pos_weight 28. The test split is not scored for these candidates (ADR-002 protocol: one new test view for the final model).
