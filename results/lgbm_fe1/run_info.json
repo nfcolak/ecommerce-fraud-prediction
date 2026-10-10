@@ -1,0 +1,35 @@
+{
+  "git_sha": "2bb18054ef693f1b542c03430050ec907e7b8489",
+  "versions": {
+    "python": "3.12.13",
+    "lightgbm": "4.7.0",
+    "pandas": "3.0.6",
+    "numpy": "2.5.3",
+    "scikit-learn": "1.9.1",
+    "pyarrow": "26.0.0"
+  },
+  "params": {
+    "objective": "binary",
+    "metric": "average_precision",
+    "seed": 42,
+    "learning_rate": 0.05,
+    "num_leaves": 256,
+    "min_child_samples": 100,
+    "feature_fraction": 0.5,
+    "bagging_fraction": 0.8,
+    "bagging_freq": 1,
+    "n_jobs": 12,
+    "verbosity": -1,
+    "max_rounds": 3000,
+    "early_stopping_rounds": 100
+  },
+  "n_features": 484,
+  "n_features_added": 53,
+  "n_categorical_features": 31,
+  "runtime_seconds": 31.6,
+  "peak_rss_mb": 4248.3,
+  "data_file_sizes_bytes": {
+    "train_transaction.csv": 683351067,
+    "train_identity.csv": 26529680
+  }
+}
