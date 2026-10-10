@@ -1,5 +1,6 @@
-lightgbm>=4.7
-pandas>=3.0
-numpy>=2.5
-scikit-learn>=1.9
-pyarrow>=26.0
+lightgbm==4.7.0
+pandas==3.0.6
+numpy==2.5.3
+scikit-learn==1.9.1
+pyarrow==26.0.0
+matplotlib==3.11.2

@@ -1,0 +1,43 @@
+{
+  "models": {
+    "baseline_lgbm": {
+      "committed": {
+        "best_iteration": 243,
+        "valid_pr_auc": 0.6630813199685505,
+        "test_pr_auc": 0.5232349375642096
+      },
+      "retrained": {
+        "best_iteration": 243,
+        "valid_pr_auc": 0.6630813199685505,
+        "test_pr_auc": 0.5232349375642096
+      },
+      "exact": true
+    },
+    "lgbm_fe1": {
+      "committed": {
+        "best_iteration": 118,
+        "valid_pr_auc": 0.648486634896157,
+        "test_pr_auc": 0.5166456873805455
+      },
+      "retrained": {
+        "best_iteration": 118,
+        "valid_pr_auc": 0.648486634896157,
+        "test_pr_auc": 0.5166456873805455
+      },
+      "exact": true
+    },
+    "lgbm_fe2_A_hist_s42": {
+      "committed": {
+        "best_iteration": 2524,
+        "valid_pr_auc": 0.6971948172029657,
+        "test_pr_auc": 0.5628267038170475
+      },
+      "retrained": {
+        "best_iteration": 2524,
+        "valid_pr_auc": 0.6971948172029657,
+        "test_pr_auc": 0.5628267038170475
+      },
+      "exact": true
+    }
+  }
+}
