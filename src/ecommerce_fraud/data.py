@@ -1,15 +1,13 @@
 """Load IEEE-CIS train_transaction + train_identity and build the time split."""
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 import pandas as pd
 
-RAW_DIR = Path(
-    "/Users/necatifurkancolak/AI-Workplace/Projects/current/"
-    "ecommerce-fraud-prediction/data/raw/ieee-cis"
-)
 WORKTREE = Path(__file__).resolve().parents[2]
+RAW_DIR = Path(os.environ.get("IEEE_CIS_RAW_DIR", WORKTREE / "data" / "raw" / "ieee-cis"))
 CACHE_PATH = WORKTREE / "data" / "processed" / "ieee_cis_train_joined.parquet"
 
 GAP_SECONDS = 7 * 24 * 3600  # 604800, label-maturity gap before test start

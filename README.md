@@ -6,7 +6,7 @@ Predict fraudulent e-commerce transactions. The motivating case is Pickup and Re
 
 A copy of the IEEE-CIS Fraud Detection competition data (Vesta) from the Kaggle dataset lnasiri007/ieeecis-fraud-detection, used for educational purposes; the data is not redistributed here.
 
-Only `train_transaction.csv` and `train_identity.csv` are used (left join on `TransactionID`). Place them under `data/raw/ieee-cis/` (git-ignored) or adjust `RAW_DIR` in `src/ecommerce_fraud/data.py`.
+Only `train_transaction.csv` and `train_identity.csv` are used (left join on `TransactionID`). Place them under `data/raw/ieee-cis/` (git-ignored) or set `IEEE_CIS_RAW_DIR` to their folder.
 
 Split by time: test = last 20% of rows; the 7 days before the test start are dropped (label-maturity gap); of the remaining earlier rows, valid = last 15%, train = the rest.
 
