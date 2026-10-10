@@ -1,0 +1,13 @@
+row index 547718 TransactionID 3534718 DT 14472785: 3 earlier rows with the same uid
+  uid_past_cnt                 feature=3.000000 by_hand=3.000000 OK
+  uid_past_mean_C1             feature=1.000000 by_hand=1.000000 OK
+  uid_past_same_product_share  feature=1.000000 by_hand=1.000000 OK
+row index 532700 TransactionID 3519700 DT 14044608: 8 earlier rows with the same uid
+  uid_past_cnt                 feature=8.000000 by_hand=8.000000 OK
+  uid_past_mean_C1             feature=1.000000 by_hand=1.000000 OK
+  uid_past_same_product_share  feature=1.000000 by_hand=1.000000 OK
+row index 572761 TransactionID 3559761 DT 15205939: 1 earlier rows with the same uid
+  uid_past_cnt                 feature=1.000000 by_hand=1.000000 OK
+  uid_past_mean_C1             feature=1.000000 by_hand=1.000000 OK
+  uid_past_same_product_share  feature=1.000000 by_hand=1.000000 OK
+ALL MATCH
