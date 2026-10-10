@@ -1,0 +1,16 @@
+row index 547718 TransactionID 3534718 DT 14472785: 3 earlier rows with the same uid
+  uid_cnt_7d                 feature=0.000000 by_hand=0.000000 OK
+  uid_amt_mean               feature=47.500000 by_hand=47.500000 OK
+  uid_since_prev             feature=8172174.000000 by_hand=8172174.000000 OK
+  uid_nuniq_P_emaildomain    feature=1.000000 by_hand=1.000000 OK
+row index 532700 TransactionID 3519700 DT 14044608: 8 earlier rows with the same uid
+  uid_cnt_7d                 feature=0.000000 by_hand=0.000000 OK
+  uid_amt_mean               feature=58.875000 by_hand=58.875000 OK
+  uid_since_prev             feature=1683979.000000 by_hand=1683979.000000 OK
+  uid_nuniq_P_emaildomain    feature=1.000000 by_hand=1.000000 OK
+row index 572761 TransactionID 3559761 DT 15205939: 1 earlier rows with the same uid
+  uid_cnt_7d                 feature=1.000000 by_hand=1.000000 OK
+  uid_amt_mean               feature=414.950000 by_hand=414.950000 OK
+  uid_since_prev             feature=14570.000000 by_hand=14570.000000 OK
+  uid_nuniq_P_emaildomain    feature=1.000000 by_hand=1.000000 OK
+ALL MATCH

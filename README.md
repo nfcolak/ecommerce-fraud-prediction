@@ -21,14 +21,14 @@ Outputs go to `results/baseline_lgbm/` (`metrics.json`, `run_info.json`, `featur
 
 ## Results
 
-`baseline_lgbm`: LightGBM on raw features (no feature engineering, no class weights), early stopping on valid PR-AUC, test scored once. Numbers are from `results/baseline_lgbm/metrics.json`.
+`baseline_lgbm`: LightGBM on raw features (no feature engineering, no class weights), early stopping on valid PR-AUC, test scored once. `lgbm_fe1`: the same split and params plus 53 past-only entity-history features (counts, recency, amount stats and distinct-value counts per card/address/client/email key, built only from strictly earlier transactions). Numbers are from `results/baseline_lgbm/metrics.json` and `results/lgbm_fe1/metrics.json`.
 
-| Metric (test) | Value |
-|---|---|
-| PR-AUC | 0.5232 |
-| ROC-AUC | 0.8993 |
-| Precision at top 1% | 0.8799 |
-| Recall at top 1% | 0.2559 |
-| Precision at top 5% | 0.3888 |
-| Recall at top 5% | 0.5650 |
-| Fraud rate (test) | 0.0344 |
+| Metric (test) | baseline_lgbm | lgbm_fe1 |
+|---|---|---|
+| PR-AUC | 0.5232 | 0.5166 |
+| ROC-AUC | 0.8993 | 0.9078 |
+| Precision at top 1% | 0.8799 | 0.8756 |
+| Recall at top 1% | 0.2559 | 0.2547 |
+| Precision at top 5% | 0.3888 | 0.3879 |
+| Recall at top 5% | 0.5650 | 0.5637 |
+| Fraud rate (test) | 0.0344 | 0.0344 |
