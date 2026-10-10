@@ -23,12 +23,22 @@ Outputs go to `results/baseline_lgbm/` (`metrics.json`, `run_info.json`, `featur
 
 `baseline_lgbm`: LightGBM on raw features (no feature engineering, no class weights), early stopping on valid PR-AUC, test scored once. `lgbm_fe1`: the same split and params plus 53 past-only entity-history features (counts, recency, amount stats and distinct-value counts per card/address/client/email key, built only from strictly earlier transactions). Numbers are from `results/baseline_lgbm/metrics.json` and `results/lgbm_fe1/metrics.json`.
 
-| Metric (test) | baseline_lgbm | lgbm_fe1 |
-|---|---|---|
-| PR-AUC | 0.5232 | 0.5166 |
-| ROC-AUC | 0.8993 | 0.9078 |
-| Precision at top 1% | 0.8799 | 0.8756 |
-| Recall at top 1% | 0.2559 | 0.2547 |
-| Precision at top 5% | 0.3888 | 0.3879 |
-| Recall at top 5% | 0.5650 | 0.5637 |
-| Fraud rate (test) | 0.0344 | 0.0344 |
+| Metric (test) | baseline_lgbm | lgbm_fe1 | lgbm_fe2 |
+|---|---|---|---|
+| PR-AUC | 0.5232 | 0.5166 | 0.5628 |
+| ROC-AUC | 0.8993 | 0.9078 | 0.9071 |
+| Precision at top 1% | 0.8799 | 0.8756 | 0.8883 |
+| Recall at top 1% | 0.2559 | 0.2547 | 0.2584 |
+| Precision at top 5% | 0.3888 | 0.3879 | 0.4182 |
+| Recall at top 5% | 0.5650 | 0.5637 | 0.6078 |
+| Fraud rate (test) | 0.0344 | 0.0344 | 0.0344 |
+
+`lgbm_fe2`: same split and params; the feature set was chosen on validation only (3 seeds per candidate), test scored once for the chosen set. The chosen set is `A_hist` (lgbm_fe1 history features without the absolute `day` feature); per-client past aggregates (`B_hist_uidagg`, `C_uidagg`) scored lower on validation. Numbers are from `results/lgbm_fe2/metrics.json`.
+
+Feature-set selection (validation PR-AUC, 3 seeds):
+
+| Candidate | Mean | SD | n_features |
+|---|---|---|---|
+| A_hist (chosen) | 0.6929 | 0.0054 | 483 |
+| B_hist_uidagg | 0.6652 | 0.0151 | 507 |
+| C_uidagg | 0.6744 | 0.0154 | 461 |

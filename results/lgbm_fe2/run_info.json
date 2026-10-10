@@ -1,0 +1,119 @@
+{
+  "git_sha": "41fa631b2647f661a1c18a21446682f290c2683b",
+  "versions": {
+    "python": "3.12.13",
+    "lightgbm": "4.7.0",
+    "pandas": "3.0.6",
+    "numpy": "2.5.3",
+    "scikit-learn": "1.9.1",
+    "pyarrow": "26.0.0"
+  },
+  "params": {
+    "objective": "binary",
+    "metric": "average_precision",
+    "seed": 42,
+    "learning_rate": 0.05,
+    "num_leaves": 256,
+    "min_child_samples": 100,
+    "feature_fraction": 0.5,
+    "bagging_fraction": 0.8,
+    "bagging_freq": 1,
+    "n_jobs": 12,
+    "verbosity": -1,
+    "max_rounds": 3000,
+    "early_stopping_rounds": 100,
+    "selection_seeds": [
+      42,
+      43,
+      44
+    ],
+    "test_seed": 42
+  },
+  "chosen": "A_hist",
+  "n_features": 483,
+  "n_features_added": 52,
+  "n_categorical_features": 31,
+  "top15_new_features_by_gain": [
+    {
+      "feature": "D1n",
+      "gain": 23969.761649747878,
+      "split": 12283
+    },
+    {
+      "feature": "D15n",
+      "gain": 16094.603909784078,
+      "split": 12744
+    },
+    {
+      "feature": "card1_amt_mean",
+      "gain": 15879.243081965475,
+      "split": 12534
+    },
+    {
+      "feature": "card1_amt_std",
+      "gain": 14469.294357493616,
+      "split": 13544
+    },
+    {
+      "feature": "D10n",
+      "gain": 13988.796625482,
+      "split": 10626
+    },
+    {
+      "feature": "P_emaildomain_amt_ratio",
+      "gain": 12987.563796810606,
+      "split": 9443
+    },
+    {
+      "feature": "D4n",
+      "gain": 12578.713368144929,
+      "split": 10794
+    },
+    {
+      "feature": "card1_addr1_amt_mean",
+      "gain": 12132.20331068569,
+      "split": 11706
+    },
+    {
+      "feature": "card1_addr1_amt_std",
+      "gain": 11434.912521379549,
+      "split": 13082
+    },
+    {
+      "feature": "P_emaildomain_cnt_all",
+      "gain": 11193.34785076221,
+      "split": 9118
+    },
+    {
+      "feature": "card1_amt_ratio",
+      "gain": 11024.02420113185,
+      "split": 13072
+    },
+    {
+      "feature": "P_emaildomain_cnt_7d",
+      "gain": 10372.457990402023,
+      "split": 10302
+    },
+    {
+      "feature": "card1_nuniq_DeviceInfo",
+      "gain": 10304.345014093418,
+      "split": 7135
+    },
+    {
+      "feature": "P_emaildomain_cnt_1d",
+      "gain": 9427.35865713322,
+      "split": 11438
+    },
+    {
+      "feature": "P_emaildomain_cnt_30d",
+      "gain": 9424.351810909508,
+      "split": 9052
+    }
+  ],
+  "runtime_seconds": 1972.5,
+  "peak_rss_mb": 9834.5,
+  "data_file_sizes_bytes": {
+    "train_transaction.csv": 683351067,
+    "train_identity.csv": 26529680
+  }
+}
