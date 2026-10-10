@@ -93,8 +93,14 @@ def _nunique_features(codes, t, val_codes, name, out):
     out[name] = (hi - lo).astype(np.float64)
 
 
-def add_history_features(df: pd.DataFrame):
-    """Return (df with new columns, list of added column names)."""
+def add_history_features(df: pd.DataFrame, nan_keys: str = "lump"):
+    """Return (df with new columns, list of added column names).
+
+    nan_keys="lump" (default): rows with a NaN key part share the factorize code -1, i.e. one
+    pseudo-entity. nan_keys="nan": every feature of a key is NaN for rows whose key is NaN.
+    """
+    if nan_keys not in ("lump", "nan"):
+        raise ValueError(f"nan_keys must be 'lump' or 'nan', got {nan_keys!r}")
     t0 = time.time()
     t = df["TransactionDT"].to_numpy(np.int64)
     if len(t) > 1 and (np.diff(t) < 0).any():
@@ -109,14 +115,22 @@ def add_history_features(df: pd.DataFrame):
 
     amt = df["TransactionAmt"].to_numpy(np.float64)
     keys = make_keys(df)
-    codes = {}
+    codes, key_cols = {}, {}
     for name in KEY_NAMES:
         codes[name] = pd.factorize(keys[name])[0].astype(np.int64)
+        before = set(new)
         _key_features(codes[name], t, amt, name, new)
+        key_cols[name] = [c for c in new if c not in before]
     for name in NUNIQUE_KEYS:
         for col in NUNIQUE_COLS:
             vc = pd.factorize(df[col])[0].astype(np.int64)  # NaN -> -1 (ignored)
             _nunique_features(codes[name], t, vc, f"{name}_nuniq_{col}", new)
+            key_cols[name].append(f"{name}_nuniq_{col}")
+    if nan_keys == "nan":
+        for name in KEY_NAMES:
+            miss = keys[name].isna().to_numpy()
+            for c in key_cols[name]:
+                new[c] = np.where(miss, np.nan, new[c])
 
     added = list(new.keys())
     out = pd.concat([df, pd.DataFrame(new, index=df.index)], axis=1)
