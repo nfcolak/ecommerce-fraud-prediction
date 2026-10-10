@@ -1,0 +1,145 @@
+{
+  "n_features": 483,
+  "shap_sample_rows": 2000,
+  "note": "rank 1 = most important of all features; addr1-sharing graph features (lgbm_fe3_graph) are not in the final feature set, so the addr1 entries are the history features built on the card1_addr1 / uid keys, plus addr1.",
+  "signals": {
+    "R_emaildomain": {
+      "gain": 74747.01785006188,
+      "gain_rank": 38,
+      "mean_abs_shap": 0.13534725087073607,
+      "shap_rank": 55
+    },
+    "dist1": {
+      "gain": 69842.49067359997,
+      "gain_rank": 39,
+      "mean_abs_shap": 0.2746635143251392,
+      "shap_rank": 15
+    },
+    "dist2": {
+      "gain": 18459.08781171235,
+      "gain_rank": 96,
+      "mean_abs_shap": 0.07431399353676577,
+      "shap_rank": 100
+    },
+    "M1": {
+      "gain": 157.51919420129707,
+      "gain_rank": 431,
+      "mean_abs_shap": 0.0035498688944572373,
+      "shap_rank": 391
+    },
+    "M2": {
+      "gain": 4485.893023876444,
+      "gain_rank": 184,
+      "mean_abs_shap": 0.016464140988183343,
+      "shap_rank": 220
+    },
+    "M3": {
+      "gain": 14943.022752637888,
+      "gain_rank": 106,
+      "mean_abs_shap": 0.09744927756807108,
+      "shap_rank": 85
+    },
+    "M4": {
+      "gain": 29748.668009904573,
+      "gain_rank": 80,
+      "mean_abs_shap": 0.10530103171056822,
+      "shap_rank": 78
+    },
+    "M5": {
+      "gain": 26428.36523414917,
+      "gain_rank": 84,
+      "mean_abs_shap": 0.18699731194660024,
+      "shap_rank": 37
+    },
+    "M6": {
+      "gain": 28590.10704826212,
+      "gain_rank": 82,
+      "mean_abs_shap": 0.14042444493407327,
+      "shap_rank": 52
+    },
+    "M7": {
+      "gain": 4295.657397496365,
+      "gain_rank": 189,
+      "mean_abs_shap": 0.05128620267569492,
+      "shap_rank": 119
+    },
+    "M8": {
+      "gain": 4815.1902170029825,
+      "gain_rank": 178,
+      "mean_abs_shap": 0.04583252876252095,
+      "shap_rank": 127
+    },
+    "M9": {
+      "gain": 8844.183347674294,
+      "gain_rank": 136,
+      "mean_abs_shap": 0.09014994493099167,
+      "shap_rank": 89
+    },
+    "card1_addr1_cnt_1d": {
+      "gain": 15472.751059157818,
+      "gain_rank": 103,
+      "mean_abs_shap": 0.04994580590161154,
+      "shap_rank": 121
+    },
+    "card1_addr1_cnt_7d": {
+      "gain": 42876.49900876308,
+      "gain_rank": 66,
+      "mean_abs_shap": 0.09947437054421931,
+      "shap_rank": 83
+    },
+    "card1_addr1_cnt_30d": {
+      "gain": 58527.92975536531,
+      "gain_rank": 50,
+      "mean_abs_shap": 0.16016067150995664,
+      "shap_rank": 45
+    },
+    "card1_addr1_cnt_all": {
+      "gain": 63881.00933219622,
+      "gain_rank": 44,
+      "mean_abs_shap": 0.1933386809234763,
+      "shap_rank": 35
+    },
+    "card1_addr1_since_prev": {
+      "gain": 66202.85872332414,
+      "gain_rank": 41,
+      "mean_abs_shap": 0.1251522713723166,
+      "shap_rank": 64
+    },
+    "card1_addr1_amt_mean": {
+      "gain": 120158.91988345285,
+      "gain_rank": 17,
+      "mean_abs_shap": 0.20956003498361253,
+      "shap_rank": 31
+    },
+    "card1_addr1_amt_std": {
+      "gain": 83408.73718863344,
+      "gain_rank": 30,
+      "mean_abs_shap": 0.1885647994581797,
+      "shap_rank": 36
+    },
+    "card1_addr1_amt_ratio": {
+      "gain": 83353.2991899609,
+      "gain_rank": 31,
+      "mean_abs_shap": 0.20018765098590574,
+      "shap_rank": 34
+    },
+    "uid_nuniq_addr1": {
+      "gain": 181.06372315826593,
+      "gain_rank": 425,
+      "mean_abs_shap": 0.0031743460797389023,
+      "shap_rank": 399
+    },
+    "card1_nuniq_addr1": {
+      "gain": 81232.06505580296,
+      "gain_rank": 33,
+      "mean_abs_shap": 0.12252057647682967,
+      "shap_rank": 65
+    },
+    "addr1": {
+      "gain": 127106.0083921609,
+      "gain_rank": 15,
+      "mean_abs_shap": 0.3164981962053622,
+      "shap_rank": 11
+    }
+  }
+}
