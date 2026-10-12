@@ -1,13 +1,18 @@
 """Training for the sequence model: masked-field pretraining, fine-tuning, scoring, embeddings.
 
 Smoke: PYTHONPATH=src python -m ecommerce_fraud.seq_train --smoke-synthetic
+       PYTHONPATH=src python -m ecommerce_fraud.seq_train --smoke-real   (data/processed/seq/smoke.npz)
 Full (needs approval, not run in the SSL-prep phase):
-    python -m ecommerce_fraud.seq_train --arrays <npz> --mode pretrain|finetune|ssl_finetune \
-        --name <model> --fit-end-dt <int> --es-days 14 --seed <int>
+    python -m ecommerce_fraud.seq_train --arrays <npz> --mode pretrain|finetune|ssl_finetune \\
+        --name <model> --window valid|fold:S-E --es-days 14 --seed <int>
 
-Inputs never contain y. Fit window = dt <= fit_end_dt; early-stopping slice = its last es-days days;
-pretraining uses every fit-window row (labeled or not); fine-tuning only labeled rows; scoring =
-labeled rows after fit_end_dt + 7 days.
+Inputs never contain y. Windows (ADR-002/003): the test split is never scored, fine-tuned on, used for
+early stopping or pretraining (hard guard).
+  valid     : fine-tune = data.time_split train rows minus the early-stopping slice (last es-days days of
+              train); scored = time_split valid rows; fit_end_dt = last train dt (must equal arrays meta).
+  fold:S-E  : train days 1..S-8, early-stopping = the last 14 of them, scored = labeled rows of days S..E;
+              fit_end_dt = end of day S-8.
+Pretraining uses every array row (labeled or not) with dt <= fit_end_dt.
 """
 from __future__ import annotations
 
@@ -15,6 +20,7 @@ import argparse
 import copy
 import json
 import random
+import re
 import time
 from types import SimpleNamespace
 
@@ -26,7 +32,6 @@ from sklearn.metrics import average_precision_score
 from ecommerce_fraud.seq_model import FraudHead, MaskedFieldHead, SeqClassifier, SeqEncoder
 
 DAY = 86400
-GAP_DAYS = 7
 MASK_FRAC = 0.15
 
 
@@ -271,7 +276,61 @@ def smoke() -> None:
     print("SEQ_TRAIN SMOKE OK")
 
 
-# --------------------------------------------------------------------------- full run
+# --------------------------------------------------------------------------- windows
+
+def _test_ids() -> np.ndarray:
+    from ecommerce_fraud import data
+    return data.time_split(data.load_joined())[2]["TransactionID"].to_numpy(np.int64)
+
+
+def guard_no_test(a, test_ids, sets: dict) -> None:
+    """Raise when any row of any named index set is a test-split TransactionID."""
+    for name, idx in sets.items():
+        hit = np.isin(a.ids[np.asarray(idx, dtype=np.int64)], test_ids)
+        if hit.any():
+            raise RuntimeError(f"{name} contains {int(hit.sum())} test-split rows (ADR-002/003 forbid this)")
+
+
+def select_window(a, window: str, es_days: int, test_ids=None):
+    """Returns (fit_end_dt, train_idx, es_idx, score_idx, pretrain_idx) as row indices into the arrays."""
+    from ecommerce_fraud import data
+    if window == "valid":
+        train, valid, test, _ = data.time_split(data.load_joined())
+        pos = {int(i): k for k, i in enumerate(a.ids)}
+        for nm, part in (("train", train), ("valid", valid)):
+            miss = sum(int(i) not in pos for i in part["TransactionID"])
+            if miss:
+                raise ValueError(f"{miss} {nm} TransactionIDs missing from the arrays")
+        tr_rows = np.array([pos[int(i)] for i in train["TransactionID"]], dtype=np.int64)
+        score_idx = np.array([pos[int(i)] for i in valid["TransactionID"]], dtype=np.int64)
+        fit_end = int(train["TransactionDT"].max())
+        es_start = fit_end - es_days * DAY
+        train_idx = tr_rows[a.dt[tr_rows] <= es_start]
+        es_idx = tr_rows[a.dt[tr_rows] > es_start]
+        test_ids = test["TransactionID"].to_numpy(np.int64)
+    else:
+        m = re.fullmatch(r"fold:(\d+)-(\d+)", window)
+        if not m:
+            raise ValueError(f"--window must be 'valid' or 'fold:S-E', got {window!r}")
+        s_day, e_day = int(m.group(1)), int(m.group(2))
+        if s_day - 8 < 1 or e_day < s_day:
+            raise ValueError(f"bad fold {window}")
+        fit_end = (s_day - 8 + 1) * DAY - 1  # end of day S-8
+        es_start = (s_day - 8 - 14 + 1) * DAY - 1  # slice = last 14 train days
+        day = a.dt // DAY
+        lab = a.labeled
+        train_idx = np.where(lab * (a.dt <= es_start))[0]
+        es_idx = np.where(lab * (a.dt > es_start) * (a.dt <= fit_end))[0]
+        score_idx = np.where(lab * (day >= s_day) * (day <= e_day))[0]
+        if test_ids is None:
+            test_ids = _test_ids()
+    pretrain_idx = np.where(a.dt <= fit_end)[0]
+    guard_no_test(a, test_ids, {"scored": score_idx, "fine-tune": train_idx, "early-stopping": es_idx,
+                                "pretraining": pretrain_idx})
+    if min(len(train_idx), len(es_idx), len(score_idx)) == 0:
+        raise ValueError(f"empty set: train={len(train_idx)} es={len(es_idx)} score={len(score_idx)}")
+    return fit_end, train_idx, es_idx, score_idx, pretrain_idx
+
 
 def run(args) -> None:
     from ecommerce_fraud import seq_data
@@ -281,24 +340,26 @@ def run(args) -> None:
     device = pick_device()
     a = seq_data.load_arrays(args.arrays)
     meta = json.loads(a.meta) if isinstance(a.meta, str) else {}
-    if meta.get("fit_end_dt") is not None and int(meta["fit_end_dt"]) != args.fit_end_dt:
-        raise ValueError(f"fit_end_dt {args.fit_end_dt} != arrays meta {meta['fit_end_dt']}: "
-                         "normalization must be fitted on the same fit window")
-    fit_end, es_start = args.fit_end_dt, args.fit_end_dt - args.es_days * DAY
-    fit = a.dt <= fit_end
-    train_idx = np.where(fit & a.labeled & (a.dt <= es_start))[0]
-    es_idx = np.where(fit & a.labeled & (a.dt > es_start))[0]
-    score_idx = np.where(a.labeled & (a.dt > fit_end + GAP_DAYS * DAY))[0]
-    print(f"fit={fit.sum()} train={len(train_idx)} es={len(es_idx)} score={len(score_idx)} device={device}")
+    fit_end, train_idx, es_idx, score_idx, pre_idx = select_window(a, args.window, args.es_days)
+    if meta.get("fit_end_dt") is None or int(meta["fit_end_dt"]) != fit_end:
+        raise ValueError(f"window {args.window} needs fit_end_dt={fit_end} but arrays meta has "
+                         f"{meta.get('fit_end_dt')}; normalization must be fitted on the same fit window. "
+                         f"Rebuild with seq_data --full using fit_end_dt={fit_end} "
+                         f"(--fit-end-day gives (day+1)*86400-1; day {fit_end // DAY} gives "
+                         f"{(fit_end // DAY + 1) * DAY - 1})")
+    print(f"window={args.window} fit_end_dt={fit_end} pretrain={len(pre_idx)} finetune={len(train_idx)} "
+          f"es={len(es_idx)} score={len(score_idx)} test_rows_in_any_set=0 device={device}")
     out_dir = models_dir() / args.name
     out_dir.mkdir(parents=True, exist_ok=True)
     res_dir = WORKTREE / "results" / args.name
     res_dir.mkdir(parents=True, exist_ok=True)
-    info = {"name": args.name, "mode": args.mode, "seed": args.seed, "fit_end_dt": fit_end,
-            "es_days": args.es_days, "arrays_meta": meta}
+    info = {"name": args.name, "mode": args.mode, "seed": args.seed, "window": args.window,
+            "fit_end_dt": fit_end, "es_days": args.es_days, "arrays_meta": meta,
+            "n_pretrain": len(pre_idx), "n_finetune": len(train_idx), "n_es": len(es_idx),
+            "n_score": len(score_idx)}
     state = None
     if args.mode in ("pretrain", "ssl_finetune"):
-        state, plog = pretrain(a, np.where(fit)[0], args.pretrain_epochs, args.seed, device)
+        state, plog = pretrain(a, pre_idx, args.pretrain_epochs, args.seed, device)
         torch.save(state, out_dir / "encoder_pretrained.pt")
         info["pretrain_log"] = plog
     if args.mode in ("finetune", "ssl_finetune"):
@@ -311,13 +372,52 @@ def run(args) -> None:
     (res_dir / "metrics.json").write_text(json.dumps(info, indent=2))
 
 
+# --------------------------------------------------------------------------- real-data smoke
+
+def smoke_real() -> None:
+    from ecommerce_fraud import seq_data
+    from ecommerce_fraud.baseline_lgbm import metrics
+    path = seq_data.data_mod.WORKTREE / "data" / "processed" / "seq" / "smoke.npz"
+    if not path.exists():
+        seq_data._smoke()
+    device = pick_device()
+    a = seq_data.load_arrays(path)
+    fit_end = int(json.loads(a.meta)["fit_end_dt"])
+    fit = a.dt <= fit_end
+    es_start = fit_end - 2 * DAY
+    pre_idx = np.where(fit)[0]
+    train_idx = np.where(fit * a.labeled * (a.dt <= es_start))[0]
+    es_idx = np.where(fit * a.labeled * (a.dt > es_start))[0]
+    score_idx = np.where(a.labeled * (a.dt > fit_end))[0]
+    guard_no_test(a, _test_ids(), {"scored": score_idx, "fine-tune": train_idx, "early-stopping": es_idx,
+                                   "pretraining": pre_idx})
+    print(f"device={device} arrays={len(a.dt)} fit_end_dt={fit_end} pretrain={len(pre_idx)} "
+          f"finetune={len(train_idx)} es={len(es_idx)} score={len(score_idx)} "
+          f"es_pos={int(a.y[es_idx].sum())} score_pos={int(a.y[score_idx].sum())}")
+    state, plog = pretrain(a, pre_idx, epochs=1, seed=0, device=device)
+    assert np.isfinite(plog[-1]["loss"])
+    model, hist = finetune(a, train_idx, es_idx, epochs=1, seed=0, device=device, init_state=state)
+    p = score(model, a, score_idx)
+    assert p.shape == (len(score_idx),) and np.isfinite(p).all()
+    m = metrics(a.y[score_idx], p)
+    e = embed(model, a, score_idx[:10])
+    print(f"pretrain loss={plog[-1]['loss']:.4f} (cat {plog[-1]['cat_loss']:.4f}, num {plog[-1]['num_loss']:.4f}) "
+          f"seconds/epoch={plog[-1]['seconds']:.1f} rows={len(pre_idx)}")
+    print(f"finetune train_loss={hist[-1]['train_loss']:.4f} es_pr_auc={hist[-1]['es_pr_auc']:.4f} "
+          f"seconds/epoch={hist[-1]['seconds']:.1f} rows={len(train_idx)}")
+    print("metrics", json.dumps(m))
+    print(f"embed shape={tuple(e.shape)} (no 16-dim projection exists; using encoder d_model={model.encoder.d_model})")
+    print("SEQ_TRAIN REAL SMOKE OK")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--smoke-synthetic", action="store_true")
+    ap.add_argument("--smoke-real", action="store_true")
     ap.add_argument("--arrays")
     ap.add_argument("--mode", choices=["pretrain", "finetune", "ssl_finetune"])
     ap.add_argument("--name")
-    ap.add_argument("--fit-end-dt", type=int)
+    ap.add_argument("--window", help="valid | fold:S-E (required for full runs)")
     ap.add_argument("--es-days", type=int, default=14)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--pretrain-epochs", type=int, default=5)
@@ -325,8 +425,10 @@ def main() -> None:
     args = ap.parse_args()
     if args.smoke_synthetic:
         return smoke()
-    if not (args.arrays and args.mode and args.name and args.fit_end_dt is not None):
-        ap.error("--arrays, --mode, --name and --fit-end-dt are required")
+    if args.smoke_real:
+        return smoke_real()
+    if not (args.arrays and args.mode and args.name and args.window):
+        ap.error("--arrays, --mode, --name and --window are required")
     run(args)
 
 
