@@ -283,32 +283,52 @@ def _smoke() -> None:
     print("SEQ_DATA SMOKE OK")
 
 
-def _full(fit_end_day: int, corpus: str, out: str) -> None:
+def valid_fit_end_dt() -> int:
+    """Last train TransactionDT of data.time_split (what seq_train --window valid requires)."""
+    return int(data_mod.time_split(data_mod.load_joined())[0]["TransactionDT"].max())
+
+
+def _full(fit_end_dt: int, corpus: str, out: str) -> None:
     lab = data_mod.load_joined(use_cache=False)
     parts = [lab] + ([load_unlabeled()] if corpus == "with_unlabeled" else [])
     df = (pd.concat(parts, ignore_index=True)
           .sort_values("TransactionDT", kind="stable").reset_index(drop=True))
-    fit_end_dt = (fit_end_day + 1) * DAY - 1  # whole fit_end_day belongs to the fit window
     arrays = build_arrays(df, fit_end_dt, corpus)
     save_arrays(out, arrays)
     print(f"saved {out}")
     _report(load_arrays(out), df)
 
 
-def main() -> None:
+def _parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--full", action="store_true")
-    ap.add_argument("--fit-end-day", type=int)
+    g = ap.add_mutually_exclusive_group()
+    g.add_argument("--fit-end-day", type=int)
+    g.add_argument("--fit-end-dt", type=int)
+    g.add_argument("--fit-end", choices=["valid"])
     ap.add_argument("--corpus", choices=["labeled_only", "with_unlabeled"])
     ap.add_argument("--out")
-    a = ap.parse_args()
+    return ap
+
+
+def main(argv=None) -> None:
+    ap = _parser()
+    a = ap.parse_args(argv)
     if a.smoke:
         _smoke()
     elif a.full:
-        if a.fit_end_day is None or a.corpus is None or a.out is None:
-            ap.error("--full needs --fit-end-day, --corpus and --out")
-        _full(a.fit_end_day, a.corpus, a.out)
+        given = [x for x in (a.fit_end_day, a.fit_end_dt, a.fit_end) if x is not None]
+        if len(given) != 1 or a.corpus is None or a.out is None:
+            ap.error("--full needs exactly one of --fit-end-day/--fit-end-dt/--fit-end, plus --corpus and --out")
+        if a.fit_end is not None:
+            fit_end_dt = valid_fit_end_dt()
+            print(f"valid fit_end_dt={fit_end_dt}")
+        elif a.fit_end_dt is not None:
+            fit_end_dt = a.fit_end_dt
+        else:
+            fit_end_dt = (a.fit_end_day + 1) * DAY - 1  # whole fit_end_day belongs to the fit window
+        _full(fit_end_dt, a.corpus, a.out)
     else:
         ap.error("use --smoke or --full")
 
