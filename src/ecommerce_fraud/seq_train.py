@@ -4,7 +4,8 @@ Smoke: PYTHONPATH=src python -m ecommerce_fraud.seq_train --smoke-synthetic
        PYTHONPATH=src python -m ecommerce_fraud.seq_train --smoke-real   (data/processed/seq/smoke.npz)
 Full (needs approval, not run in the SSL-prep phase):
     python -m ecommerce_fraud.seq_train --arrays <npz> --mode pretrain|finetune|ssl_finetune \\
-        --name <model> --window valid|fold:S-E --es-days 14 --seed <int>
+        --name <model> --window valid|fold:S-E --es-days 14 --seed <int> \\
+        [--save-embed (ssl_finetune only)] [--models-dir DIR] [--results-dir DIR]
 
 Inputs never contain y. Windows (ADR-002/003): the test split is never scored, fine-tuned on, used for
 early stopping or pretraining (hard guard).
@@ -19,9 +20,11 @@ from __future__ import annotations
 import argparse
 import copy
 import json
+import os
 import random
 import re
 import time
+from pathlib import Path
 from types import SimpleNamespace
 
 import numpy as np
@@ -36,7 +39,13 @@ MASK_FRAC = 0.15
 
 
 def pick_device() -> str:
+    if torch.cuda.is_available():
+        return "cuda"
     return "mps" if torch.backends.mps.is_available() else "cpu"
+
+
+def device_label(device: str) -> str:
+    return f"{device} ({torch.cuda.get_device_name()})" if device == "cuda" else device
 
 
 def set_seed(seed: int) -> None:
@@ -261,7 +270,7 @@ def smoke() -> None:
     device = pick_device()
     a = synthetic_arrays()
     n = len(a.dt)
-    print(f"device={device} N={n} F={a.num.shape[1]} K={a.cat.shape[1]} L={a.hist.shape[1]} "
+    print(f"device={device_label(device)} N={n} F={a.num.shape[1]} K={a.cat.shape[1]} L={a.hist.shape[1]} "
           f"pos={a.y.mean():.3f} rows_without_history={(a.hist[:, -1] < 0).sum()}")
     state, plog = pretrain(a, np.arange(n), epochs=1, seed=0, device=device)
     assert np.isfinite(plog[-1]["loss"])
@@ -334,10 +343,13 @@ def select_window(a, window: str, es_days: int, test_ids=None):
 
 def run(args) -> None:
     from ecommerce_fraud import seq_data
-    from ecommerce_fraud.artifacts import models_dir
+    from ecommerce_fraud.artifacts import WORKTREE as ART_ROOT
     from ecommerce_fraud.baseline_lgbm import metrics
-    from ecommerce_fraud.data import WORKTREE
+    if args.models_dir:
+        os.environ["MODELS_DIR"] = str(Path(args.models_dir).resolve())  # read by artifacts.models_dir()
+    from ecommerce_fraud.artifacts import models_dir
     device = pick_device()
+    print(f"device={device_label(device)}", flush=True)
     a = seq_data.load_arrays(args.arrays)
     meta = json.loads(a.meta) if isinstance(a.meta, str) else {}
     fit_end, train_idx, es_idx, score_idx, pre_idx = select_window(a, args.window, args.es_days)
@@ -351,25 +363,46 @@ def run(args) -> None:
           f"es={len(es_idx)} score={len(score_idx)} test_rows_in_any_set=0 device={device}")
     out_dir = models_dir() / args.name
     out_dir.mkdir(parents=True, exist_ok=True)
-    res_dir = WORKTREE / "results" / args.name
+    res_dir = (Path(args.results_dir).resolve() if args.results_dir else ART_ROOT / "results") / args.name
     res_dir.mkdir(parents=True, exist_ok=True)
     info = {"name": args.name, "mode": args.mode, "seed": args.seed, "window": args.window,
-            "fit_end_dt": fit_end, "es_days": args.es_days, "arrays_meta": meta,
-            "n_pretrain": len(pre_idx), "n_finetune": len(train_idx), "n_es": len(es_idx),
-            "n_score": len(score_idx)}
+            "fit_end_dt": fit_end, "es_days": args.es_days, "arrays_meta": meta}
+    counts = {"n_pretrain": len(pre_idx), "n_finetune": len(train_idx), "n_es": len(es_idx),
+              "n_score": len(score_idx)}
+    info.update(counts)
+    timing = {"device": device_label(device)}
     state = None
     if args.mode in ("pretrain", "ssl_finetune"):
+        t0 = time.time()
         state, plog = pretrain(a, pre_idx, args.pretrain_epochs, args.seed, device)
-        torch.save(state, out_dir / "encoder_pretrained.pt")
+        timing["seconds_pretrain"] = time.time() - t0
+        torch.save(state, out_dir / "pretrain.pt")
         info["pretrain_log"] = plog
+    result = {}
     if args.mode in ("finetune", "ssl_finetune"):
+        t0 = time.time()
         model, hist = finetune(a, train_idx, es_idx, args.finetune_epochs, args.seed, device, init_state=state)
+        timing["seconds_finetune"] = time.time() - t0
         p = score(model, a, score_idx)
         save_model_and_scores(args.name, model, a.ids[score_idx], p)
         info["finetune_history"] = hist
-        info["valid"] = metrics(a.y[score_idx], p)
-        print(json.dumps(info["valid"]))
-    (res_dir / "metrics.json").write_text(json.dumps(info, indent=2))
+        timing["best_epoch"] = 1 + int(np.argmax([h["es_pr_auc"] for h in hist]))  # first max = the kept state
+        result = metrics(a.y[score_idx], p)
+        print(json.dumps(result))
+        if args.save_embed:
+            emb_idx = np.concatenate([train_idx, es_idx, score_idx])
+            test_ids = _test_ids()
+            guard_no_test(a, test_ids, {"embedding": emb_idx})
+            ids = a.ids[emb_idx].astype(np.int64)
+            assert len(np.unique(ids)) == len(ids)
+            emb = embed(model, a, emb_idx, device=device)
+            assert emb.shape == (len(ids), 64) and emb.dtype == np.float32 and np.isfinite(emb).all()
+            assert not np.isin(ids, test_ids).any()
+            np.savez(out_dir / "embed.npz", ids=ids, emb=emb)
+            print(f"embed.npz ids={ids.shape} emb={emb.shape}")
+    info.update(timing)
+    (res_dir / "run_info.json").write_text(json.dumps(info, indent=2))
+    (res_dir / "metrics.json").write_text(json.dumps({**result, **counts, **timing}, indent=2))
 
 
 # --------------------------------------------------------------------------- real-data smoke
@@ -422,6 +455,9 @@ def main() -> None:
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--pretrain-epochs", type=int, default=5)
     ap.add_argument("--finetune-epochs", type=int, default=15)
+    ap.add_argument("--save-embed", action="store_true", help="ssl_finetune only: write models/<name>/embed.npz")
+    ap.add_argument("--models-dir", help="override the models/ root (default: artifacts.models_dir())")
+    ap.add_argument("--results-dir", help="override the results/ root (default: <repo>/results)")
     args = ap.parse_args()
     if args.smoke_synthetic:
         return smoke()
@@ -429,6 +465,8 @@ def main() -> None:
         return smoke_real()
     if not (args.arrays and args.mode and args.name and args.window):
         ap.error("--arrays, --mode, --name and --window are required")
+    if args.save_embed and args.mode != "ssl_finetune":
+        ap.error("--save-embed requires --mode ssl_finetune")
     run(args)
 
 
