@@ -4,3 +4,4 @@ numpy==2.5.3
 scikit-learn==1.9.1
 pyarrow==26.0.0
 matplotlib==3.11.2
+torch==2.14.1
