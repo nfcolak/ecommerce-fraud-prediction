@@ -1,0 +1,22 @@
+{
+  "arm": "xgb2",
+  "description": "final's 483 features with the corrected XGBoost member (lossguide, 256 leaves, min_child_weight 30, eta 0.05)",
+  "seed": 42,
+  "max_rows": null,
+  "max_rounds": null,
+  "valid_pr_auc": 0.6721404745186508,
+  "best_iteration": 1079,
+  "hit_max_rounds": false,
+  "n_features": 483,
+  "seconds": 168.9,
+  "rss_mb": 7946.0,
+  "git_sha": "8e1098746c905013150c43cc2f235d8bc495adf6",
+  "arm_spec": {
+    "name": "xgb2",
+    "description": "final's 483 features with the corrected XGBoost member (lossguide, 256 leaves, min_child_weight 30, eta 0.05)",
+    "model": "xgb2",
+    "early_stop": 100
+  },
+  "reference_pr_auc": 0.6949933428746624,
+  "delta_vs_final": -0.022852868356011635
+}

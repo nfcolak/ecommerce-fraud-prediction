@@ -1,0 +1,39 @@
+{
+  "arm": "final_jitter",
+  "window": "w1",
+  "seed": 42,
+  "pr_auc": 0.5280340920470431,
+  "metrics": {
+    "pr_auc": 0.5280340920470431,
+    "roc_auc": 0.8688658284466558,
+    "fraud_rate": 0.03979003305035318,
+    "n_rows": 46293,
+    "precision_at_top_1pct": 0.9676025917926566,
+    "recall_at_top_1pct": 0.24321389793702497,
+    "precision_at_top_5pct": 0.4159827213822894,
+    "recall_at_top_5pct": 0.5228013029315961
+  },
+  "best_iteration": null,
+  "hit_max_rounds": null,
+  "seconds": 181.0,
+  "rss_mb": 3493.2,
+  "n_features": 483,
+  "n_fit": 74808,
+  "n_es": 64900,
+  "n_score": 46293,
+  "n_fraud_score": 1842,
+  "score_days": [
+    40,
+    55
+  ],
+  "fit_end_dt": 2851181,
+  "arm_spec": {
+    "name": "final_jitter",
+    "description": "final's LightGBM with per-seed jitter of num_leaves, feature/bagging fraction, min_child_samples",
+    "model": "custom",
+    "fit": "<callable fit_jitter>"
+  },
+  "git_sha": "da8c304cd6a33fbb151de32b8b2c5befb4e445da",
+  "max_rows": null,
+  "max_rounds_override": null
+}

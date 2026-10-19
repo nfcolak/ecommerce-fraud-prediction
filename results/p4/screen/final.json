@@ -1,0 +1,20 @@
+{
+  "arm": "final",
+  "description": "incumbent: LightGBM A_hist_nanfix, spw 28",
+  "seed": 42,
+  "max_rows": null,
+  "max_rounds": null,
+  "valid_pr_auc": 0.6949933428746624,
+  "best_iteration": 2822,
+  "hit_max_rounds": false,
+  "n_features": 483,
+  "seconds": 326.8,
+  "rss_mb": 7946.0,
+  "git_sha": "8e1098746c905013150c43cc2f235d8bc495adf6",
+  "arm_spec": {
+    "name": "final",
+    "description": "incumbent: LightGBM A_hist_nanfix, spw 28"
+  },
+  "reference_pr_auc": 0.6949933428746624,
+  "delta_vs_final": null
+}

@@ -1,0 +1,60 @@
+{
+  "model": "lgbm_final_emb_valid_s2",
+  "window": "valid",
+  "seed": 2,
+  "lightgbm_seed": 44,
+  "valid": {
+    "pr_auc": 0.6730614423054955,
+    "roc_auc": 0.9278949847120258,
+    "fraud_rate": 0.04122408803091072,
+    "n_rows": 68067,
+    "precision_at_top_1pct": 0.9162995594713657,
+    "recall_at_top_1pct": 0.22238061297220243,
+    "precision_at_top_5pct": 0.5566980023501763,
+    "recall_at_top_5pct": 0.6753385602280827
+  },
+  "best_iteration": 2867,
+  "n_features": 499,
+  "n_base_features": 483,
+  "embedding": {
+    "source": "models/seq_ssl_valid_s2/embed.npz",
+    "fit_rows": 385712,
+    "fit_rows_with_embedding": 385712,
+    "explained_variance_ratio_sum": 0.7950844003457831,
+    "coverage_per_frame": [
+      1.0,
+      1.0
+    ]
+  },
+  "fit": {
+    "early_stopping": "full valid (as final.py)",
+    "n_fit": 385712
+  },
+  "params": {
+    "objective": "binary",
+    "metric": "average_precision",
+    "seed": 44,
+    "learning_rate": 0.05,
+    "num_leaves": 256,
+    "min_child_samples": 100,
+    "feature_fraction": 0.5,
+    "bagging_fraction": 0.8,
+    "bagging_freq": 1,
+    "n_jobs": 12,
+    "verbosity": -1,
+    "scale_pos_weight": 28.0,
+    "max_rounds": 5000,
+    "early_stopping_rounds": 100
+  },
+  "git_sha": "7ea32bfa4791f5887a9c6e02cc7a9c130ae22a45",
+  "versions": {
+    "python": "3.12.13",
+    "lightgbm": "4.7.0",
+    "pandas": "3.0.6",
+    "numpy": "2.5.3",
+    "scikit-learn": "1.9.1",
+    "pyarrow": "26.0.0"
+  },
+  "runtime_seconds": 251.0,
+  "peak_rss_mb": 6956.0
+}

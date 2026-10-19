@@ -1,0 +1,29 @@
+{
+  "arm": "prune_amount",
+  "description": "final + amount_patterns pruned to uid_same_amt_prod_1d/_7d",
+  "seed": 42,
+  "max_rows": null,
+  "max_rounds": null,
+  "valid_pr_auc": 0.6692183501890376,
+  "best_iteration": 938,
+  "hit_max_rounds": false,
+  "n_features": 485,
+  "seconds": 113.5,
+  "rss_mb": 7946.0,
+  "git_sha": "8e1098746c905013150c43cc2f235d8bc495adf6",
+  "arm_spec": {
+    "name": "prune_amount",
+    "description": "final + amount_patterns pruned to uid_same_amt_prod_1d/_7d",
+    "blocks": [
+      "amount_patterns"
+    ],
+    "block_cols": {
+      "amount_patterns": [
+        "amount_patterns__uid_same_amt_prod_1d",
+        "amount_patterns__uid_same_amt_prod_7d"
+      ]
+    }
+  },
+  "reference_pr_auc": 0.6949933428746624,
+  "delta_vs_final": -0.025774992685624776
+}

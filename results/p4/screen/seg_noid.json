@@ -1,0 +1,22 @@
+{
+  "arm": "seg_noid",
+  "description": "final's global LGBM + a no-identity-only LGBM, segment scores mapped to the global scale (Platt on ES rows)",
+  "seed": 42,
+  "max_rows": null,
+  "max_rounds": null,
+  "valid_pr_auc": 0.7044051317023817,
+  "best_iteration": null,
+  "hit_max_rounds": null,
+  "n_features": 483,
+  "seconds": 489.7,
+  "rss_mb": 7946.0,
+  "git_sha": "8e1098746c905013150c43cc2f235d8bc495adf6",
+  "arm_spec": {
+    "name": "seg_noid",
+    "description": "final's global LGBM + a no-identity-only LGBM, segment scores mapped to the global scale (Platt on ES rows)",
+    "model": "custom",
+    "fit": "<callable fit_seg_noid>"
+  },
+  "reference_pr_auc": 0.6949933428746624,
+  "delta_vs_final": 0.009411788827719314
+}

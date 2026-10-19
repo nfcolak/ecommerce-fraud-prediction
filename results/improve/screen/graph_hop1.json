@@ -1,0 +1,39 @@
+{
+  "name": "graph_hop1",
+  "description": "1-hop past-only entity graph stats (uid/card1/addr1/P_email/R_email/fp): degree, age, (cumulative ones only for uid/card1/fp: no trend proxies) distinct uids/fps, earlier amount mean/std/ratio, 1d/7d counts; exact, strictly earlier rows",
+  "uses_labels": false,
+  "fit_end_dt": 9666972,
+  "git_sha": "29b8c73dd13c829e5e6b4efb00187ed240fd75be",
+  "max_rounds": 5000,
+  "max_rows": null,
+  "seed": 42,
+  "valid": {
+    "pr_auc": 0.6810729789023141,
+    "roc_auc": 0.9324856254860753,
+    "fraud_rate": 0.04122408803091072,
+    "n_rows": 68067,
+    "precision_at_top_1pct": 0.9177679882525698,
+    "recall_at_top_1pct": 0.22273699215965787,
+    "precision_at_top_5pct": 0.5558166862514688,
+    "recall_at_top_5pct": 0.6742694226657163
+  },
+  "best_iteration": 2758,
+  "n_features": 523,
+  "n_block_features": 40,
+  "fit_seconds": 255.0,
+  "block_load_seconds": 2.0,
+  "blocks": {
+    "graph_hop1": {
+      "load_seconds": 2.0,
+      "build_seconds": 1.6
+    }
+  },
+  "hit_max_rounds": false,
+  "peak_rss_mb": 7577.5,
+  "valid_pr_auc": 0.6810729789023141,
+  "reference_pr_auc": 0.6949933428746624,
+  "delta_vs_final": -0.013920363972348304,
+  "block_build_seconds": {
+    "graph_hop1": 1.6
+  }
+}

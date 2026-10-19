@@ -1,0 +1,25 @@
+{
+  "arm": "blend2",
+  "description": "equal-weight rank blend of final (LightGBM), xgb2 and cat2",
+  "seed": 42,
+  "max_rows": null,
+  "max_rounds": null,
+  "valid_pr_auc": 0.669289684954689,
+  "best_iteration": null,
+  "hit_max_rounds": null,
+  "n_features": null,
+  "seconds": 0.0,
+  "rss_mb": 7946.0,
+  "git_sha": "8e1098746c905013150c43cc2f235d8bc495adf6",
+  "arm_spec": {
+    "name": "blend2",
+    "description": "equal-weight rank blend of final (LightGBM), xgb2 and cat2",
+    "blend_of": [
+      "final",
+      "xgb2",
+      "cat2"
+    ]
+  },
+  "reference_pr_auc": 0.6949933428746624,
+  "delta_vs_final": -0.02570365791997342
+}

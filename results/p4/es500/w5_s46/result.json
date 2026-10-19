@@ -1,0 +1,38 @@
+{
+  "arm": "es500",
+  "window": "w5",
+  "seed": 46,
+  "pr_auc": 0.6122425436350929,
+  "metrics": {
+    "pr_auc": 0.6122425436350929,
+    "roc_auc": 0.9022316108406662,
+    "fraud_rate": 0.0452637266719315,
+    "n_rows": 48118,
+    "precision_at_top_1pct": 0.9543568464730291,
+    "recall_at_top_1pct": 0.21120293847566574,
+    "precision_at_top_5pct": 0.5328345802161264,
+    "recall_at_top_5pct": 0.588613406795225
+  },
+  "best_iteration": 1945,
+  "hit_max_rounds": false,
+  "seconds": 223.8,
+  "rss_mb": 6348.1,
+  "n_features": 483,
+  "n_fit": 291259,
+  "n_es": 49336,
+  "n_score": 48118,
+  "n_fraud_score": 2178,
+  "score_days": [
+    104,
+    119
+  ],
+  "fit_end_dt": 8380788,
+  "arm_spec": {
+    "name": "es500",
+    "description": "final with early stopping patience 500",
+    "early_stop": 500
+  },
+  "git_sha": "8e1098746c905013150c43cc2f235d8bc495adf6",
+  "max_rows": null,
+  "max_rounds_override": null
+}

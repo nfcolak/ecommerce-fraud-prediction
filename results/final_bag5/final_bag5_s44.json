@@ -1,0 +1,26 @@
+{
+  "seed": 44,
+  "best_iteration": 2899,
+  "seconds": 383.0,
+  "rss_mb": 11638.7,
+  "valid": {
+    "pr_auc": 0.6976470690275087,
+    "roc_auc": 0.9371800384012077,
+    "fraud_rate": 0.04122408803091072,
+    "n_rows": 68067,
+    "precision_at_top_1pct": 0.920704845814978,
+    "recall_at_top_1pct": 0.22344975053456878,
+    "precision_at_top_5pct": 0.5690364277320799,
+    "recall_at_top_5pct": 0.6903064861012117
+  },
+  "test": {
+    "pr_auc": 0.5656402401322864,
+    "roc_auc": 0.9067481349407343,
+    "fraud_rate": 0.034409184813899145,
+    "n_rows": 118108,
+    "precision_at_top_1pct": 0.8900169204737732,
+    "recall_at_top_1pct": 0.2588582677165354,
+    "precision_at_top_5pct": 0.42075855062648154,
+    "recall_at_top_5pct": 0.6114665354330708
+  }
+}

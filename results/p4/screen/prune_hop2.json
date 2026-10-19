@@ -1,0 +1,34 @@
+{
+  "arm": "prune_hop2",
+  "description": "final + graph_hop2 without reach_uid, reach_uid_1d/7d/30d (7 of 11 kept)",
+  "seed": 42,
+  "max_rows": null,
+  "max_rounds": null,
+  "valid_pr_auc": 0.6811746477146582,
+  "best_iteration": 1814,
+  "hit_max_rounds": false,
+  "n_features": 490,
+  "seconds": 218.8,
+  "rss_mb": 7946.0,
+  "git_sha": "8e1098746c905013150c43cc2f235d8bc495adf6",
+  "arm_spec": {
+    "name": "prune_hop2",
+    "description": "final + graph_hop2 without reach_uid, reach_uid_1d/7d/30d (7 of 11 kept)",
+    "blocks": [
+      "graph_hop2"
+    ],
+    "block_cols": {
+      "graph_hop2": [
+        "graph_hop2__n_hub",
+        "graph_hop2__reach_fp",
+        "graph_hop2__reach_card",
+        "graph_hop2__cnt_7d",
+        "graph_hop2__cnt_30d",
+        "graph_hop2__amt_mean_7d",
+        "graph_hop2__amt_mean_30d"
+      ]
+    }
+  },
+  "reference_pr_auc": 0.6949933428746624,
+  "delta_vs_final": -0.013818695160004224
+}

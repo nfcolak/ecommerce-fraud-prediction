@@ -1,0 +1,160 @@
+{
+  "name": "seq_sup_fold63_s0",
+  "mode": "finetune",
+  "seed": 0,
+  "window": "fold:63-83",
+  "fit_end_dt": 4838399,
+  "es_days": 14,
+  "arrays_meta": {
+    "fit_end_dt": 4838399,
+    "corpus": "labeled_only",
+    "L": 31,
+    "n_rows": 590540,
+    "n_fit_rows": 209660,
+    "num_names": [
+      "amt_log",
+      "amt_cents",
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "C5",
+      "C6",
+      "C7",
+      "C8",
+      "C9",
+      "C10",
+      "C11",
+      "C12",
+      "C13",
+      "C14",
+      "D1n",
+      "D2",
+      "D3",
+      "D4n",
+      "D5",
+      "D6",
+      "D7",
+      "D8",
+      "D9",
+      "D10n",
+      "D11",
+      "D12",
+      "D13",
+      "D14",
+      "D15n"
+    ],
+    "cat_names": [
+      "ProductCD",
+      "card1",
+      "card2",
+      "card3",
+      "card4",
+      "card5",
+      "card6",
+      "addr1",
+      "addr2",
+      "P_emaildomain",
+      "R_emaildomain",
+      "M1",
+      "M2",
+      "M3",
+      "M4",
+      "M5",
+      "M6",
+      "M7",
+      "M8",
+      "M9",
+      "DeviceType",
+      "DeviceInfo",
+      "id_30",
+      "id_31",
+      "id_33"
+    ],
+    "cat_caps": {
+      "card1": 2000,
+      "DeviceInfo": 500,
+      "id_30": 300,
+      "id_31": 300,
+      "id_33": 300
+    },
+    "d_relative": [
+      "D1",
+      "D4",
+      "D10",
+      "D15"
+    ],
+    "normalization": "median/IQR on fit window, clip +-10",
+    "history": "uid=make_keys()['uid'], NaN uid component -> no history, dt strictly earlier",
+    "git_sha": "unknown"
+  },
+  "n_pretrain": 209660,
+  "n_finetune": 169243,
+  "n_es": 40417,
+  "n_score": 64287,
+  "finetune_history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.8803529164877283,
+      "es_pr_auc": 0.34339822159234706,
+      "seconds": 9.601043701171875
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.7119941321841206,
+      "es_pr_auc": 0.42985923946829374,
+      "seconds": 9.0326988697052
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.6408457786562931,
+      "es_pr_auc": 0.46166678379293624,
+      "seconds": 9.075835466384888
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.5844731397298445,
+      "es_pr_auc": 0.4486450764443751,
+      "seconds": 9.156048774719238
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.5384285976010633,
+      "es_pr_auc": 0.50070068988116,
+      "seconds": 9.183912515640259
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.49666809281670904,
+      "es_pr_auc": 0.5012542350338534,
+      "seconds": 9.210271120071411
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.46482175857905883,
+      "es_pr_auc": 0.5250840386456865,
+      "seconds": 9.136043310165405
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.4398650163448001,
+      "es_pr_auc": 0.4974855573833975,
+      "seconds": 9.064993143081665
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.40783149811876823,
+      "es_pr_auc": 0.5080618841067939,
+      "seconds": 9.098031997680664
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.39023174489118967,
+      "es_pr_auc": 0.5122444283919897,
+      "seconds": 9.042534112930298
+    }
+  ],
+  "device": "cuda (Tesla T4)",
+  "seconds_finetune": 93.20400595664978,
+  "best_epoch": 7
+}

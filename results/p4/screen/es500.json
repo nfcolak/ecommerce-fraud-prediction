@@ -1,0 +1,21 @@
+{
+  "arm": "es500",
+  "description": "final with early stopping patience 500",
+  "seed": 42,
+  "max_rows": null,
+  "max_rounds": null,
+  "valid_pr_auc": 0.6963917915620251,
+  "best_iteration": 4078,
+  "hit_max_rounds": false,
+  "n_features": 483,
+  "seconds": 418.7,
+  "rss_mb": 7946.0,
+  "git_sha": "8e1098746c905013150c43cc2f235d8bc495adf6",
+  "arm_spec": {
+    "name": "es500",
+    "description": "final with early stopping patience 500",
+    "early_stop": 500
+  },
+  "reference_pr_auc": 0.6949933428746624,
+  "delta_vs_final": 0.0013984486873627189
+}

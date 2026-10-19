@@ -1,0 +1,39 @@
+{
+  "arm": "refit_lag14",
+  "window": "w3",
+  "seed": 42,
+  "pr_auc": 0.5939121186207659,
+  "metrics": {
+    "pr_auc": 0.5939121186207659,
+    "roc_auc": 0.8992569664769692,
+    "fraud_rate": 0.03891092292850252,
+    "n_rows": 46645,
+    "precision_at_top_1pct": 0.9486081370449678,
+    "recall_at_top_1pct": 0.2440771349862259,
+    "precision_at_top_5pct": 0.46035147878268323,
+    "recall_at_top_5pct": 0.5917355371900826
+  },
+  "best_iteration": null,
+  "hit_max_rounds": null,
+  "seconds": 283.4,
+  "rss_mb": 11194.1,
+  "n_features": 483,
+  "n_fit": 196024,
+  "n_es": 42174,
+  "n_score": 46645,
+  "n_fraud_score": 1815,
+  "score_days": [
+    72,
+    87
+  ],
+  "fit_end_dt": 5615993,
+  "arm_spec": {
+    "name": "refit_lag14",
+    "description": "refit_x100 with labels only up to S-22 (refit on all rows <= S-22)",
+    "model": "custom",
+    "fit": "<callable fit_refit_lag>"
+  },
+  "git_sha": "9b46ad9818932b11be71490271821b005a94c185",
+  "max_rows": null,
+  "max_rounds_override": null
+}

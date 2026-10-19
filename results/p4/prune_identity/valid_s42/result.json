@@ -1,0 +1,54 @@
+{
+  "arm": "prune_identity",
+  "window": "valid",
+  "seed": 42,
+  "pr_auc": 0.6899679166136655,
+  "metrics": {
+    "pr_auc": 0.6899679166136655,
+    "roc_auc": 0.9360288409554516,
+    "fraud_rate": 0.04122408803091072,
+    "n_rows": 68067,
+    "precision_at_top_1pct": 0.9177679882525698,
+    "recall_at_top_1pct": 0.22273699215965787,
+    "precision_at_top_5pct": 0.5649236192714454,
+    "recall_at_top_5pct": 0.6853171774768354
+  },
+  "best_iteration": 2131,
+  "hit_max_rounds": false,
+  "seconds": 253.3,
+  "rss_mb": 7946.0,
+  "n_features": 496,
+  "n_fit": 385712,
+  "n_es": 68067,
+  "n_score": 68067,
+  "n_fraud_score": 2806,
+  "score_days": null,
+  "fit_end_dt": 9666972,
+  "arm_spec": {
+    "name": "prune_identity",
+    "description": "final + identity_velocity without _all and card1_device_age columns (13 of 18 kept)",
+    "blocks": [
+      "identity_velocity"
+    ],
+    "block_cols": {
+      "identity_velocity": [
+        "identity_velocity__nuniq_card1_by_DeviceInfo_1d",
+        "identity_velocity__nuniq_card1_by_DeviceInfo_7d",
+        "identity_velocity__nuniq_card1_by_id_19_1d",
+        "identity_velocity__nuniq_card1_by_id_19_7d",
+        "identity_velocity__nuniq_card1_by_id_20_1d",
+        "identity_velocity__nuniq_card1_by_id_20_7d",
+        "identity_velocity__nuniq_card1_by_email_addr1_1d",
+        "identity_velocity__nuniq_card1_by_email_addr1_7d",
+        "identity_velocity__nuniq_DeviceInfo_by_uid",
+        "identity_velocity__nuniq_id_31_by_uid",
+        "identity_velocity__uid_first_DeviceInfo",
+        "identity_velocity__uid_first_email",
+        "identity_velocity__uid_first_addr1"
+      ]
+    }
+  },
+  "git_sha": "8e1098746c905013150c43cc2f235d8bc495adf6",
+  "max_rows": null,
+  "max_rounds_override": null
+}

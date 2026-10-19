@@ -1,0 +1,34 @@
+{
+  "arm": "final",
+  "window": "valid",
+  "seed": 42,
+  "pr_auc": 0.6949933428746624,
+  "metrics": {
+    "pr_auc": 0.6949933428746624,
+    "roc_auc": 0.9353929819801478,
+    "fraud_rate": 0.04122408803091072,
+    "n_rows": 68067,
+    "precision_at_top_1pct": 0.9192364170337739,
+    "recall_at_top_1pct": 0.22309337134711332,
+    "precision_at_top_5pct": 0.5696239717978848,
+    "recall_at_top_5pct": 0.6910192444761226
+  },
+  "best_iteration": 2822,
+  "hit_max_rounds": false,
+  "seconds": 326.8,
+  "rss_mb": 7946.0,
+  "n_features": 483,
+  "n_fit": 385712,
+  "n_es": 68067,
+  "n_score": 68067,
+  "n_fraud_score": 2806,
+  "score_days": null,
+  "fit_end_dt": 9666972,
+  "arm_spec": {
+    "name": "final",
+    "description": "incumbent: LightGBM A_hist_nanfix, spw 28"
+  },
+  "git_sha": "8e1098746c905013150c43cc2f235d8bc495adf6",
+  "max_rows": null,
+  "max_rounds_override": null
+}

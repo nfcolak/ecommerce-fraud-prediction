@@ -1,0 +1,96 @@
+{
+  "reference_valid_pr_auc": 0.6949933428746624,
+  "min_gain": 0.002,
+  "seed": 42,
+  "screen_delta": {
+    "amount_patterns": -0.03876445227648073,
+    "anomaly_score": 0.002191772772412448,
+    "d_norm_all": -0.0007227976535804093,
+    "freq_enc": -0.02667979264070708,
+    "graph_emb": -0.04716756204574435,
+    "graph_hop1": -0.013920363972348304,
+    "graph_hop2": -0.020330288686257858,
+    "hawkes_burst": -0.003208233790843673,
+    "identity_velocity": -0.01795939515553191,
+    "time_cyclic": 0.0024649682195307943,
+    "uid_vagg": 0.0027506359657212265
+  },
+  "eligible": [
+    "uid_vagg",
+    "time_cyclic",
+    "anomaly_score"
+  ],
+  "trials": {
+    "uid_vagg": {
+      "blocks": [
+        "uid_vagg"
+      ],
+      "valid_pr_auc": 0.6977439788403836,
+      "source": "screen"
+    },
+    "time_cyclic": {
+      "blocks": [
+        "time_cyclic"
+      ],
+      "valid_pr_auc": 0.6974583110941932,
+      "source": "screen"
+    },
+    "anomaly_score": {
+      "blocks": [
+        "anomaly_score"
+      ],
+      "valid_pr_auc": 0.6971851156470749,
+      "source": "screen"
+    },
+    "time_cyclic+uid_vagg": {
+      "blocks": [
+        "time_cyclic",
+        "uid_vagg"
+      ],
+      "valid_pr_auc": 0.6969788656155941,
+      "best_iteration": 1894,
+      "n_features": 611,
+      "fit_seconds": 200.5,
+      "source": "combine"
+    },
+    "anomaly_score+uid_vagg": {
+      "blocks": [
+        "anomaly_score",
+        "uid_vagg"
+      ],
+      "valid_pr_auc": 0.6838940374737038,
+      "best_iteration": 1535,
+      "n_features": 600,
+      "fit_seconds": 163.5,
+      "source": "combine"
+    }
+  },
+  "steps": [
+    {
+      "added": "uid_vagg",
+      "valid_pr_auc": 0.6977439788403836,
+      "gain": 0.0027506359657212265,
+      "candidates": {
+        "uid_vagg": 0.6977439788403836,
+        "time_cyclic": 0.6974583110941932,
+        "anomaly_score": 0.6971851156470749
+      },
+      "accepted": true
+    },
+    {
+      "added": "time_cyclic",
+      "valid_pr_auc": 0.6969788656155941,
+      "gain": -0.0007651132247895598,
+      "candidates": {
+        "time_cyclic": 0.6969788656155941,
+        "anomaly_score": 0.6838940374737038
+      },
+      "accepted": false
+    }
+  ],
+  "selected_blocks": [
+    "uid_vagg"
+  ],
+  "valid_pr_auc": 0.6977439788403836,
+  "complete": true
+}

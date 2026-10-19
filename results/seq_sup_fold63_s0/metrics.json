@@ -1,0 +1,17 @@
+{
+  "pr_auc": 0.45140352847931053,
+  "roc_auc": 0.8178577120505981,
+  "fraud_rate": 0.040428079664707184,
+  "n_rows": 64287,
+  "precision_at_top_1pct": 0.9004665629860031,
+  "recall_at_top_1pct": 0.22277799153520586,
+  "precision_at_top_5pct": 0.37573872472783826,
+  "recall_at_top_5pct": 0.464794151596768,
+  "n_pretrain": 209660,
+  "n_finetune": 169243,
+  "n_es": 40417,
+  "n_score": 64287,
+  "device": "cuda (Tesla T4)",
+  "seconds_finetune": 93.20400595664978,
+  "best_epoch": 7
+}

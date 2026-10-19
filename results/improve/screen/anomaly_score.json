@@ -1,0 +1,39 @@
+{
+  "name": "anomaly_score",
+  "description": "IsolationForest score and per-ProductCD robust (median/MAD) distance on 30 numeric columns, fit window only",
+  "uses_labels": false,
+  "fit_end_dt": 9666972,
+  "git_sha": "a15531d3186e922114b762b93f2f61f3557549e8",
+  "max_rounds": 5000,
+  "max_rows": null,
+  "seed": 42,
+  "valid": {
+    "pr_auc": 0.6971851156470749,
+    "roc_auc": 0.9360622939963543,
+    "fraud_rate": 0.04122408803091072,
+    "n_rows": 68067,
+    "precision_at_top_1pct": 0.9148311306901615,
+    "recall_at_top_1pct": 0.22202423378474698,
+    "precision_at_top_5pct": 0.5710928319623971,
+    "recall_at_top_5pct": 0.6928011404133999
+  },
+  "best_iteration": 3063,
+  "n_features": 486,
+  "n_block_features": 3,
+  "fit_seconds": 245.6,
+  "block_load_seconds": 3.9,
+  "blocks": {
+    "anomaly_score": {
+      "load_seconds": 3.9,
+      "build_seconds": 3.8
+    }
+  },
+  "hit_max_rounds": false,
+  "peak_rss_mb": 7181.9,
+  "valid_pr_auc": 0.6971851156470749,
+  "reference_pr_auc": 0.6949933428746624,
+  "delta_vs_final": 0.002191772772412448,
+  "block_build_seconds": {
+    "anomaly_score": 3.8
+  }
+}

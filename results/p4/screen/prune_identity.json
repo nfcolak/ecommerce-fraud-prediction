@@ -1,0 +1,40 @@
+{
+  "arm": "prune_identity",
+  "description": "final + identity_velocity without _all and card1_device_age columns (13 of 18 kept)",
+  "seed": 42,
+  "max_rows": null,
+  "max_rounds": null,
+  "valid_pr_auc": 0.6899679166136655,
+  "best_iteration": 2131,
+  "hit_max_rounds": false,
+  "n_features": 496,
+  "seconds": 253.3,
+  "rss_mb": 7946.0,
+  "git_sha": "8e1098746c905013150c43cc2f235d8bc495adf6",
+  "arm_spec": {
+    "name": "prune_identity",
+    "description": "final + identity_velocity without _all and card1_device_age columns (13 of 18 kept)",
+    "blocks": [
+      "identity_velocity"
+    ],
+    "block_cols": {
+      "identity_velocity": [
+        "identity_velocity__nuniq_card1_by_DeviceInfo_1d",
+        "identity_velocity__nuniq_card1_by_DeviceInfo_7d",
+        "identity_velocity__nuniq_card1_by_id_19_1d",
+        "identity_velocity__nuniq_card1_by_id_19_7d",
+        "identity_velocity__nuniq_card1_by_id_20_1d",
+        "identity_velocity__nuniq_card1_by_id_20_7d",
+        "identity_velocity__nuniq_card1_by_email_addr1_1d",
+        "identity_velocity__nuniq_card1_by_email_addr1_7d",
+        "identity_velocity__nuniq_DeviceInfo_by_uid",
+        "identity_velocity__nuniq_id_31_by_uid",
+        "identity_velocity__uid_first_DeviceInfo",
+        "identity_velocity__uid_first_email",
+        "identity_velocity__uid_first_addr1"
+      ]
+    }
+  },
+  "reference_pr_auc": 0.6949933428746624,
+  "delta_vs_final": -0.00502542626099689
+}

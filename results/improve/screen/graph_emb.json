@@ -1,0 +1,39 @@
+{
+  "name": "graph_emb",
+  "description": "GraphSAGE (hetero, temporal, past-only) 32-dim embedding + score; labels only as the encoder's fit-window training target, never as input",
+  "uses_labels": false,
+  "fit_end_dt": 9666972,
+  "git_sha": "29b8c73dd13c829e5e6b4efb00187ed240fd75be",
+  "max_rounds": 5000,
+  "max_rows": null,
+  "seed": 42,
+  "valid": {
+    "pr_auc": 0.6478257808289181,
+    "roc_auc": 0.9029826045388687,
+    "fraud_rate": 0.04122408803091072,
+    "n_rows": 68067,
+    "precision_at_top_1pct": 0.933920704845815,
+    "recall_at_top_1pct": 0.22665716322166785,
+    "precision_at_top_5pct": 0.5414218566392479,
+    "recall_at_top_5pct": 0.6568068424803991
+  },
+  "best_iteration": 2338,
+  "n_features": 516,
+  "n_block_features": 33,
+  "fit_seconds": 207.1,
+  "block_load_seconds": 0.5,
+  "blocks": {
+    "graph_emb": {
+      "load_seconds": 0.5,
+      "build_seconds": 0.2
+    }
+  },
+  "hit_max_rounds": false,
+  "peak_rss_mb": 10544.7,
+  "valid_pr_auc": 0.6478257808289181,
+  "reference_pr_auc": 0.6949933428746624,
+  "delta_vs_final": -0.04716756204574435,
+  "block_build_seconds": {
+    "graph_emb": 0.2
+  }
+}

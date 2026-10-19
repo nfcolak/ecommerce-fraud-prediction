@@ -1,0 +1,69 @@
+{
+  "model": "lgbm_final_emb_fold111_s0",
+  "window": "fold:111-131",
+  "seed": 0,
+  "lightgbm_seed": 42,
+  "valid": {
+    "pr_auc": 0.6095031812456143,
+    "roc_auc": 0.9070571643337185,
+    "fraud_rate": 0.040476594170507266,
+    "n_rows": 64877,
+    "precision_at_top_1pct": 0.9137134052388289,
+    "recall_at_top_1pct": 0.22581873571972583,
+    "precision_at_top_5pct": 0.502157829839704,
+    "recall_at_top_5pct": 0.6203351104341204
+  },
+  "best_iteration": 1883,
+  "n_features": 499,
+  "n_base_features": 483,
+  "embedding": {
+    "source": "models/seq_ssl_fold111_s0/embed.npz",
+    "fit_rows": 362483,
+    "fit_rows_with_embedding": 362483,
+    "explained_variance_ratio_sum": 0.8006136902999754,
+    "coverage_per_frame": [
+      1.0,
+      1.0
+    ]
+  },
+  "fit": {
+    "early_stopping": "last 14 train days (as backtest.py)",
+    "n_fit": 312574,
+    "n_es": 49909,
+    "train_days": [
+      1,
+      103
+    ],
+    "score_days": [
+      111,
+      131
+    ]
+  },
+  "params": {
+    "objective": "binary",
+    "metric": "average_precision",
+    "seed": 42,
+    "learning_rate": 0.05,
+    "num_leaves": 256,
+    "min_child_samples": 100,
+    "feature_fraction": 0.5,
+    "bagging_fraction": 0.8,
+    "bagging_freq": 1,
+    "n_jobs": 12,
+    "verbosity": -1,
+    "scale_pos_weight": 28.0,
+    "max_rounds": 5000,
+    "early_stopping_rounds": 100
+  },
+  "git_sha": "7ea32bfa4791f5887a9c6e02cc7a9c130ae22a45",
+  "versions": {
+    "python": "3.12.13",
+    "lightgbm": "4.7.0",
+    "pandas": "3.0.6",
+    "numpy": "2.5.3",
+    "scikit-learn": "1.9.1",
+    "pyarrow": "26.0.0"
+  },
+  "runtime_seconds": 160.7,
+  "peak_rss_mb": 6228.9
+}

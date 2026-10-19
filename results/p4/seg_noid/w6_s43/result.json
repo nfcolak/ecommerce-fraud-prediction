@@ -1,0 +1,39 @@
+{
+  "arm": "seg_noid",
+  "window": "w6",
+  "seed": 43,
+  "pr_auc": 0.6467806297177792,
+  "metrics": {
+    "pr_auc": 0.6467806297177792,
+    "roc_auc": 0.921686917239647,
+    "fraud_rate": 0.03633384312868691,
+    "n_rows": 45770,
+    "precision_at_top_1pct": 0.9192139737991266,
+    "recall_at_top_1pct": 0.25315694527961513,
+    "precision_at_top_5pct": 0.4927916120576671,
+    "recall_at_top_5pct": 0.6782922429344558
+  },
+  "best_iteration": null,
+  "hit_max_rounds": null,
+  "seconds": 542.4,
+  "rss_mb": 7106.0,
+  "n_features": 483,
+  "n_fit": 347363,
+  "n_es": 42160,
+  "n_score": 45770,
+  "n_fraud_score": 1663,
+  "score_days": [
+    120,
+    134
+  ],
+  "fit_end_dt": 9763194,
+  "arm_spec": {
+    "name": "seg_noid",
+    "description": "final's global LGBM + a no-identity-only LGBM, segment scores mapped to the global scale (Platt on ES rows)",
+    "model": "custom",
+    "fit": "<callable fit_seg_noid>"
+  },
+  "git_sha": "8e1098746c905013150c43cc2f235d8bc495adf6",
+  "max_rows": null,
+  "max_rounds_override": null
+}

@@ -1,0 +1,39 @@
+{
+  "arm": "seg_noid_blend",
+  "window": "w6",
+  "seed": 46,
+  "pr_auc": 0.6432404703153255,
+  "metrics": {
+    "pr_auc": 0.6432404703153255,
+    "roc_auc": 0.9255451071187637,
+    "fraud_rate": 0.03633384312868691,
+    "n_rows": 45770,
+    "precision_at_top_1pct": 0.9126637554585153,
+    "recall_at_top_1pct": 0.2513529765484065,
+    "precision_at_top_5pct": 0.49366535605067713,
+    "recall_at_top_5pct": 0.6794948887552615
+  },
+  "best_iteration": null,
+  "hit_max_rounds": null,
+  "seconds": 392.8,
+  "rss_mb": 7957.2,
+  "n_features": 483,
+  "n_fit": 347363,
+  "n_es": 42160,
+  "n_score": 45770,
+  "n_fraud_score": 1663,
+  "score_days": [
+    120,
+    134
+  ],
+  "fit_end_dt": 9763194,
+  "arm_spec": {
+    "name": "seg_noid_blend",
+    "description": "seg_noid with no-identity rows = mean of calibrated global and segment probabilities",
+    "model": "custom",
+    "fit": "<callable fit_seg_noid_blend>"
+  },
+  "git_sha": "8e1098746c905013150c43cc2f235d8bc495adf6",
+  "max_rows": null,
+  "max_rounds_override": null
+}

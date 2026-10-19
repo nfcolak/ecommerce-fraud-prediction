@@ -1,0 +1,17 @@
+{
+  "seed": 43,
+  "rounds": 2826,
+  "n_train_rows": 453779,
+  "seconds": 574.3,
+  "rss_mb": 4047.1,
+  "test": {
+    "pr_auc": 0.6255449345866877,
+    "roc_auc": 0.9232362109616761,
+    "fraud_rate": 0.034409184813899145,
+    "n_rows": 118108,
+    "precision_at_top_1pct": 0.9238578680203046,
+    "recall_at_top_1pct": 0.2687007874015748,
+    "precision_at_top_5pct": 0.4558076532339993,
+    "recall_at_top_5pct": 0.6624015748031497
+  }
+}

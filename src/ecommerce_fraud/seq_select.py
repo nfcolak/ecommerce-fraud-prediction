@@ -47,7 +47,10 @@ def read_json(path: Path):
 
 def valid_of(results_root: Path, model: str):
     d = read_json(results_root / model / "metrics.json")
-    return None if d is None else {k: d["valid"][k] for k in KEYS}
+    if d is None:
+        return None
+    v = d["valid"] if "valid" in d else d  # model_emb nests under "valid"; seq_train is flat
+    return {k: v[k] for k in KEYS}
 
 
 def model_roots(models_root):

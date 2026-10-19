@@ -46,3 +46,15 @@ lightning_logs/
 .ruff_cache/
 .idea/
 .vscode/
+
+# Per-row selection-round scores (kept locally; AGENTS.md: per-row scores are not published)
+results/p4/**/scores.parquet
+results/p5/**/scores.parquet
+
+# Agent and spec tooling (local only)
+openspec/
+.claude/
+.agents/
+.gsd/
+.gsd-worktrees/
+.gsd-backups/

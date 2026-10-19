@@ -1,0 +1,23 @@
+{
+  "arm": "email_flags",
+  "description": "final + 7 row-level P/R e-mail consistency flags (P==R, one missing, same family other TLD, free-mail)",
+  "seed": 42,
+  "max_rows": null,
+  "max_rounds": null,
+  "valid_pr_auc": 0.6962194947736906,
+  "best_iteration": 2908,
+  "hit_max_rounds": false,
+  "n_features": 490,
+  "seconds": 319.1,
+  "rss_mb": 7946.0,
+  "git_sha": "8e1098746c905013150c43cc2f235d8bc495adf6",
+  "arm_spec": {
+    "name": "email_flags",
+    "description": "final + 7 row-level P/R e-mail consistency flags (P==R, one missing, same family other TLD, free-mail)",
+    "blocks": [
+      "email_flags"
+    ]
+  },
+  "reference_pr_auc": 0.6949933428746624,
+  "delta_vs_final": 0.0012261518990281939
+}

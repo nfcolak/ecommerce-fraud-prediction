@@ -1,0 +1,26 @@
+{
+  "window": "valid",
+  "model": "lgbm",
+  "seed": 44,
+  "metrics": {
+    "pr_auc": 0.6969314041587297,
+    "roc_auc": 0.9338184828826425,
+    "fraud_rate": 0.04122408803091072,
+    "n_rows": 68067,
+    "precision_at_top_1pct": 0.9251101321585903,
+    "recall_at_top_1pct": 0.22451888809693513,
+    "precision_at_top_5pct": 0.5705052878965923,
+    "recall_at_top_5pct": 0.692088382038489
+  },
+  "best_iteration": 2704,
+  "n_features": 597,
+  "fit_seconds": 276.1,
+  "peak_rss_mb": 10491.0,
+  "blocks": {
+    "uid_vagg": {
+      "load_seconds": 0.1,
+      "build_seconds": 3.6
+    }
+  },
+  "fit_end_dt": 9666972
+}

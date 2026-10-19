@@ -1,0 +1,39 @@
+{
+  "name": "graph_hop2",
+  "description": "2-hop past-only entity graph reach via non-hub entities (hub >50 uids): distinct uids/fps/cards reached, 7d/30d neighbour count + amount mean, 1d/7d/30d uid-reach growth; APPROX: each entity contributes its last 50 earlier rows only",
+  "uses_labels": false,
+  "fit_end_dt": 9666972,
+  "git_sha": "29b8c73dd13c829e5e6b4efb00187ed240fd75be",
+  "max_rounds": 5000,
+  "max_rows": null,
+  "seed": 42,
+  "valid": {
+    "pr_auc": 0.6746630541884046,
+    "roc_auc": 0.9347839083730493,
+    "fraud_rate": 0.04122408803091072,
+    "n_rows": 68067,
+    "precision_at_top_1pct": 0.922173274596182,
+    "recall_at_top_1pct": 0.22380612972202424,
+    "precision_at_top_5pct": 0.5487661574618097,
+    "recall_at_top_5pct": 0.6657163221667854
+  },
+  "best_iteration": 1050,
+  "n_features": 494,
+  "n_block_features": 11,
+  "fit_seconds": 96.0,
+  "block_load_seconds": 5.0,
+  "blocks": {
+    "graph_hop2": {
+      "load_seconds": 4.9,
+      "build_seconds": 4.8
+    }
+  },
+  "hit_max_rounds": false,
+  "peak_rss_mb": 7577.5,
+  "valid_pr_auc": 0.6746630541884046,
+  "reference_pr_auc": 0.6949933428746624,
+  "delta_vs_final": -0.020330288686257858,
+  "block_build_seconds": {
+    "graph_hop2": 4.8
+  }
+}

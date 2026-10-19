@@ -1,0 +1,48 @@
+{
+  "arm": "prune_hop2",
+  "window": "valid",
+  "seed": 42,
+  "pr_auc": 0.6811746477146582,
+  "metrics": {
+    "pr_auc": 0.6811746477146582,
+    "roc_auc": 0.9347823957233057,
+    "fraud_rate": 0.04122408803091072,
+    "n_rows": 68067,
+    "precision_at_top_1pct": 0.9148311306901615,
+    "recall_at_top_1pct": 0.22202423378474698,
+    "precision_at_top_5pct": 0.5637485311398355,
+    "recall_at_top_5pct": 0.6838916607270136
+  },
+  "best_iteration": 1814,
+  "hit_max_rounds": false,
+  "seconds": 218.8,
+  "rss_mb": 7946.0,
+  "n_features": 490,
+  "n_fit": 385712,
+  "n_es": 68067,
+  "n_score": 68067,
+  "n_fraud_score": 2806,
+  "score_days": null,
+  "fit_end_dt": 9666972,
+  "arm_spec": {
+    "name": "prune_hop2",
+    "description": "final + graph_hop2 without reach_uid, reach_uid_1d/7d/30d (7 of 11 kept)",
+    "blocks": [
+      "graph_hop2"
+    ],
+    "block_cols": {
+      "graph_hop2": [
+        "graph_hop2__n_hub",
+        "graph_hop2__reach_fp",
+        "graph_hop2__reach_card",
+        "graph_hop2__cnt_7d",
+        "graph_hop2__cnt_30d",
+        "graph_hop2__amt_mean_7d",
+        "graph_hop2__amt_mean_30d"
+      ]
+    }
+  },
+  "git_sha": "8e1098746c905013150c43cc2f235d8bc495adf6",
+  "max_rows": null,
+  "max_rounds_override": null
+}

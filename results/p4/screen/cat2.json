@@ -1,0 +1,22 @@
+{
+  "arm": "cat2",
+  "description": "final's 483 features with the corrected CatBoost member (Logloss stopping, no CTR on high-cardinality ids, spw 8)",
+  "seed": 42,
+  "max_rows": null,
+  "max_rounds": null,
+  "valid_pr_auc": 0.618859573984844,
+  "best_iteration": 318,
+  "hit_max_rounds": false,
+  "n_features": 483,
+  "seconds": 62.9,
+  "rss_mb": 7946.0,
+  "git_sha": "8e1098746c905013150c43cc2f235d8bc495adf6",
+  "arm_spec": {
+    "name": "cat2",
+    "description": "final's 483 features with the corrected CatBoost member (Logloss stopping, no CTR on high-cardinality ids, spw 8)",
+    "model": "cat2",
+    "early_stop": 100
+  },
+  "reference_pr_auc": 0.6949933428746624,
+  "delta_vs_final": -0.07613376888981838
+}

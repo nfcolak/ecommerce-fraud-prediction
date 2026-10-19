@@ -1,0 +1,40 @@
+{
+  "window": "fold0",
+  "model": "lgbm",
+  "seed": 42,
+  "metrics": {
+    "pr_auc": 0.5851457375350534,
+    "roc_auc": 0.879949262729812,
+    "fraud_rate": 0.040428080327282345,
+    "n_rows": 64287,
+    "precision_at_top_1pct": 0.9611197511664075,
+    "recall_at_top_1pct": 0.23778376298576376,
+    "precision_at_top_5pct": 0.4734059097978227,
+    "recall_at_top_5pct": 0.5856098499422855
+  },
+  "best_iteration": 1080,
+  "n_features": 597,
+  "fit_seconds": 98.9,
+  "peak_rss_mb": 10491.0,
+  "score_start_day": 63,
+  "score_end_day": 83,
+  "train_days": [
+    1,
+    55
+  ],
+  "es_days": [
+    42,
+    55
+  ],
+  "fit_end_dt": 4838374,
+  "blocks": {
+    "uid_vagg": {
+      "load_seconds": 3.1,
+      "build_seconds": 2.3
+    }
+  },
+  "n_fit": 169243,
+  "n_es": 40417,
+  "n_score": 64287,
+  "n_fraud_score": 2599
+}

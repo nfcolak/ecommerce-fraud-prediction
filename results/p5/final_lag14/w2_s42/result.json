@@ -1,0 +1,39 @@
+{
+  "arm": "final_lag14",
+  "window": "w2",
+  "seed": 42,
+  "pr_auc": 0.5531464200705323,
+  "metrics": {
+    "pr_auc": 0.5531464200705323,
+    "roc_auc": 0.8669635406656839,
+    "fraud_rate": 0.044640358242373356,
+    "n_rows": 50022,
+    "precision_at_top_1pct": 0.9700598802395209,
+    "recall_at_top_1pct": 0.21764442454097627,
+    "precision_at_top_5pct": 0.4784172661870504,
+    "recall_at_top_5pct": 0.5360501567398119
+  },
+  "best_iteration": null,
+  "hit_max_rounds": null,
+  "seconds": 1976.8,
+  "rss_mb": 10886.2,
+  "n_features": 483,
+  "n_fit": 147375,
+  "n_es": 42260,
+  "n_score": 50022,
+  "n_fraud_score": 2233,
+  "score_days": [
+    56,
+    71
+  ],
+  "fit_end_dt": 4233594,
+  "arm_spec": {
+    "name": "final_lag14",
+    "description": "final with labels only up to S-22 (fit <= S-36, ES S-35..S-22)",
+    "model": "custom",
+    "fit": "<callable fit_final_lag>"
+  },
+  "git_sha": "9b46ad9818932b11be71490271821b005a94c185",
+  "max_rows": null,
+  "max_rounds_override": null
+}

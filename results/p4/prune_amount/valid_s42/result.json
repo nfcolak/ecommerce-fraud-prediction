@@ -1,0 +1,43 @@
+{
+  "arm": "prune_amount",
+  "window": "valid",
+  "seed": 42,
+  "pr_auc": 0.6692183501890376,
+  "metrics": {
+    "pr_auc": 0.6692183501890376,
+    "roc_auc": 0.9345919656804784,
+    "fraud_rate": 0.04122408803091072,
+    "n_rows": 68067,
+    "precision_at_top_1pct": 0.9148311306901615,
+    "recall_at_top_1pct": 0.22202423378474698,
+    "precision_at_top_5pct": 0.5525851938895417,
+    "recall_at_top_5pct": 0.6703492516037064
+  },
+  "best_iteration": 938,
+  "hit_max_rounds": false,
+  "seconds": 113.5,
+  "rss_mb": 7946.0,
+  "n_features": 485,
+  "n_fit": 385712,
+  "n_es": 68067,
+  "n_score": 68067,
+  "n_fraud_score": 2806,
+  "score_days": null,
+  "fit_end_dt": 9666972,
+  "arm_spec": {
+    "name": "prune_amount",
+    "description": "final + amount_patterns pruned to uid_same_amt_prod_1d/_7d",
+    "blocks": [
+      "amount_patterns"
+    ],
+    "block_cols": {
+      "amount_patterns": [
+        "amount_patterns__uid_same_amt_prod_1d",
+        "amount_patterns__uid_same_amt_prod_7d"
+      ]
+    }
+  },
+  "git_sha": "8e1098746c905013150c43cc2f235d8bc495adf6",
+  "max_rows": null,
+  "max_rounds_override": null
+}

@@ -1,0 +1,42 @@
+{
+  "arm": "obj_goss",
+  "window": "w5",
+  "seed": 42,
+  "pr_auc": 0.6076850136925253,
+  "metrics": {
+    "pr_auc": 0.6076850136925253,
+    "roc_auc": 0.9026499210652453,
+    "fraud_rate": 0.0452637266719315,
+    "n_rows": 48118,
+    "precision_at_top_1pct": 0.941908713692946,
+    "recall_at_top_1pct": 0.20844811753902662,
+    "precision_at_top_5pct": 0.5311720698254364,
+    "recall_at_top_5pct": 0.5867768595041323
+  },
+  "best_iteration": 1339,
+  "hit_max_rounds": false,
+  "seconds": 159.2,
+  "rss_mb": 9313.0,
+  "n_features": 483,
+  "n_fit": 291259,
+  "n_es": 49336,
+  "n_score": 48118,
+  "n_fraud_score": 2178,
+  "score_days": [
+    104,
+    119
+  ],
+  "fit_end_dt": 8380788,
+  "arm_spec": {
+    "name": "obj_goss",
+    "description": "final with data_sample_strategy goss instead of bagging 0.8",
+    "params": {
+      "data_sample_strategy": "goss",
+      "bagging_fraction": 1.0,
+      "bagging_freq": 0
+    }
+  },
+  "git_sha": "da8c304cd6a33fbb151de32b8b2c5befb4e445da",
+  "max_rows": null,
+  "max_rounds_override": null
+}

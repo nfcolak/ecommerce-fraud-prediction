@@ -1,0 +1,39 @@
+{
+  "name": "identity_velocity",
+  "description": "Distinct card1 per DeviceInfo/id_19/id_20/email+addr1 (1d, 7d, all), distinct DeviceInfo/id_31 per uid, card1-DeviceInfo age, uid first-seen flags",
+  "uses_labels": false,
+  "fit_end_dt": 9666972,
+  "git_sha": "a15531d3186e922114b762b93f2f61f3557549e8",
+  "max_rounds": 5000,
+  "max_rows": null,
+  "seed": 42,
+  "valid": {
+    "pr_auc": 0.6770339477191305,
+    "roc_auc": 0.9367230434320623,
+    "fraud_rate": 0.04122408803091072,
+    "n_rows": 68067,
+    "precision_at_top_1pct": 0.9177679882525698,
+    "recall_at_top_1pct": 0.22273699215965787,
+    "precision_at_top_5pct": 0.5628672150411281,
+    "recall_at_top_5pct": 0.6828225231646472
+  },
+  "best_iteration": 1059,
+  "n_features": 501,
+  "n_block_features": 18,
+  "fit_seconds": 150.9,
+  "block_load_seconds": 4.6,
+  "blocks": {
+    "identity_velocity": {
+      "load_seconds": 4.6,
+      "build_seconds": 4.4
+    }
+  },
+  "hit_max_rounds": false,
+  "peak_rss_mb": 7181.9,
+  "valid_pr_auc": 0.6770339477191305,
+  "reference_pr_auc": 0.6949933428746624,
+  "delta_vs_final": -0.01795939515553191,
+  "block_build_seconds": {
+    "identity_velocity": 4.4
+  }
+}

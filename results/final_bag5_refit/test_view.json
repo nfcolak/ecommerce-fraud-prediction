@@ -1,0 +1,179 @@
+{
+  "note": "6th view of the test period (days 141-182); comparative, not an unbiased absolute estimate. Recipe selected under ADR-005 extended to bags (round p5 Stage B, PREREGISTRATION p5).",
+  "git_sha": "5925cb73e9dcaff2d53132f172cf67e563ffd7fe",
+  "split": {
+    "train": {
+      "n_rows": 385712,
+      "n_fraud": 13188,
+      "fraud_rate": 0.03419131372630356,
+      "dt_min": 86400,
+      "dt_max": 9666972
+    },
+    "valid": {
+      "n_rows": 68067,
+      "n_fraud": 2806,
+      "fraud_rate": 0.04122408803091072,
+      "dt_min": 9666974,
+      "dt_max": 11588050
+    },
+    "test": {
+      "n_rows": 118108,
+      "n_fraud": 4064,
+      "fraud_rate": 0.034409184813899145,
+      "dt_min": 12192900,
+      "dt_max": 15811131
+    }
+  },
+  "gap_days_valid_to_test": 7.000578703703703,
+  "n_features": 483,
+  "seeds": [
+    42,
+    43,
+    44,
+    45,
+    46
+  ],
+  "per_seed": {
+    "42": {
+      "seed": 42,
+      "rounds": 2822,
+      "n_train_rows": 453779,
+      "seconds": 699.8,
+      "rss_mb": 4047.1,
+      "test": {
+        "pr_auc": 0.6233028380770802,
+        "roc_auc": 0.9229895050004183,
+        "fraud_rate": 0.034409184813899145,
+        "n_rows": 118108,
+        "precision_at_top_1pct": 0.9238578680203046,
+        "recall_at_top_1pct": 0.2687007874015748,
+        "precision_at_top_5pct": 0.45648493057907213,
+        "recall_at_top_5pct": 0.6633858267716536
+      }
+    },
+    "43": {
+      "seed": 43,
+      "rounds": 2826,
+      "n_train_rows": 453779,
+      "seconds": 574.3,
+      "rss_mb": 4047.1,
+      "test": {
+        "pr_auc": 0.6255449345866877,
+        "roc_auc": 0.9232362109616761,
+        "fraud_rate": 0.034409184813899145,
+        "n_rows": 118108,
+        "precision_at_top_1pct": 0.9238578680203046,
+        "recall_at_top_1pct": 0.2687007874015748,
+        "precision_at_top_5pct": 0.4558076532339993,
+        "recall_at_top_5pct": 0.6624015748031497
+      }
+    },
+    "44": {
+      "seed": 44,
+      "rounds": 2899,
+      "n_train_rows": 453779,
+      "seconds": 618.9,
+      "rss_mb": 4047.1,
+      "test": {
+        "pr_auc": 0.6234338802881221,
+        "roc_auc": 0.9230129820041829,
+        "fraud_rate": 0.034409184813899145,
+        "n_rows": 118108,
+        "precision_at_top_1pct": 0.9187817258883249,
+        "recall_at_top_1pct": 0.2672244094488189,
+        "precision_at_top_5pct": 0.4539451405350491,
+        "recall_at_top_5pct": 0.6596948818897638
+      }
+    },
+    "45": {
+      "seed": 45,
+      "rounds": 669,
+      "n_train_rows": 453779,
+      "seconds": 116.2,
+      "rss_mb": 4051.4,
+      "test": {
+        "pr_auc": 0.5884901243651474,
+        "roc_auc": 0.920823359256698,
+        "fraud_rate": 0.034409184813899145,
+        "n_rows": 118108,
+        "precision_at_top_1pct": 0.9001692047377327,
+        "recall_at_top_1pct": 0.2618110236220472,
+        "precision_at_top_5pct": 0.4344734168642059,
+        "recall_at_top_5pct": 0.6313976377952756
+      }
+    },
+    "46": {
+      "seed": 46,
+      "rounds": 2995,
+      "n_train_rows": 453779,
+      "seconds": 429.6,
+      "rss_mb": 4292.7,
+      "test": {
+        "pr_auc": 0.6256956075798376,
+        "roc_auc": 0.9241022580178336,
+        "fraud_rate": 0.034409184813899145,
+        "n_rows": 118108,
+        "precision_at_top_1pct": 0.9170896785109983,
+        "recall_at_top_1pct": 0.26673228346456695,
+        "precision_at_top_5pct": 0.4529292245174399,
+        "recall_at_top_5pct": 0.6582185039370079
+      }
+    }
+  },
+  "n_train_rows": 453779,
+  "test": {
+    "final_bag5_refit": {
+      "pr_auc": 0.6234170547089766,
+      "roc_auc": 0.9265287900777761,
+      "fraud_rate": 0.034409184813899145,
+      "n_rows": 118108,
+      "precision_at_top_1pct": 0.9196277495769881,
+      "recall_at_top_1pct": 0.2674704724409449,
+      "precision_at_top_5pct": 0.4541144598713173,
+      "recall_at_top_5pct": 0.6599409448818898
+    },
+    "final_bag5": {
+      "pr_auc": 0.5661845933503509,
+      "roc_auc": 0.9088074420854833,
+      "fraud_rate": 0.034409184813899145,
+      "n_rows": 118108,
+      "precision_at_top_1pct": 0.8917089678510999,
+      "recall_at_top_1pct": 0.2593503937007874,
+      "precision_at_top_5pct": 0.4190653572637995,
+      "recall_at_top_5pct": 0.609005905511811
+    },
+    "final": {
+      "pr_auc": 0.5605403226448981,
+      "roc_auc": 0.9044627399992323,
+      "fraud_rate": 0.034409184813899145,
+      "n_rows": 118108,
+      "precision_at_top_1pct": 0.8824027072758037,
+      "recall_at_top_1pct": 0.25664370078740156,
+      "precision_at_top_5pct": 0.4163562478835083,
+      "recall_at_top_5pct": 0.6050688976377953
+    },
+    "single_seed_mean_pr_auc": 0.617293476979375
+  },
+  "paired_bootstrap": {
+    "block_days": 7,
+    "n_reps": 2000,
+    "seed": 20261019,
+    "vs_final_bag5": {
+      "delta_pr_auc": 0.0572324613586257,
+      "ci95": [
+        0.032048416643578714,
+        0.08913943225365362
+      ],
+      "p_delta_le_0": 0.0
+    },
+    "vs_final": {
+      "delta_pr_auc": 0.06287673206407851,
+      "ci95": [
+        0.03797354712519035,
+        0.09365185832029221
+      ],
+      "p_delta_le_0": 0.0
+    }
+  },
+  "runtime_seconds": 2504.7
+}

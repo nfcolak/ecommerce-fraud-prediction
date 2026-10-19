@@ -2,7 +2,11 @@
 
 Fraud scoring for e-commerce transactions, motivated by Pickup and Return Point (PARP) abuse (customer return fraud, false "not received" claims, pickup-point partner abuse). No public labelled PARP data exists, so the models are built and evaluated on the public IEEE-CIS card-transaction fraud data with a strict time split, and the return/PARP side is written up as a design.
 
-The final LightGBM model reaches test PR-AUC 0.5605 (95% day-block CI 0.5274-0.5903). That is +0.0373 over the raw-feature baseline (paired 95% CI 0.0274 to 0.0476). Reviewing the top 1% of orders each day catches 25.2% of fraud at 85.5% precision. Source: `results/final/metrics.json` (bootstrap, paired deltas, capacity).
+The final model is `final_bag5_refit`: five LightGBM seeds, each retrained on train + valid for the round count that early stopping found on valid, rank-averaged. It reaches test PR-AUC 0.6234; its top 1% of test orders has precision 0.920 and recall 0.267, its top 5% precision 0.454 and recall 0.660. Against `final_bag5` (the same recipe trained on train only, test PR-AUC 0.5662) the paired gain is +0.0572 (95% CI 0.0320 to 0.0891); against the single-seed `final` (0.5605) it is +0.0629 (0.0380 to 0.0937). Paired day-block bootstrap, 7-day blocks (6 over the 42 test days), 2000 resamples, p < 0.0005 (0 of 2000 resamples). This is the 6th view of the same test period: a comparative result, not an unbiased absolute estimate. Sources: `results/final_bag5_refit/test_view.json`, `results/final_bag5/test_view.json`.
+
+Earlier single-model result (`final`, test PR-AUC 0.5605, day-block CI 0.5274-0.5903, +0.0373 over the raw-feature baseline, paired 95% CI 0.0274 to 0.0476): `results/final/metrics.json`. The decision-layer sections below (calibration, capacity, cost, SHAP, stability) were computed for this single-seed `final`, not for `final_bag5_refit`.
+
+The project is closed (2026-10-19). `git_sha` fields inside the results JSON files refer to the local development history; the public repository holds one squash commit.
 
 ## Data
 
@@ -23,16 +27,19 @@ Split by time with `data.time_split`: train, valid, a 7-day gap (label maturity)
 
 - Every choice (features, parameters, threshold, calibration) is made on valid or on forward folds, never on test.
 - History features use strictly earlier rows only and no labels. There are no absolute-time features (`TransactionDT`, day index, all-time counts on low-cardinality keys).
-- Seeds: LightGBM seed 42 for reported models; selection runs use 3 seeds and report mean and sd. Test CIs are day-block bootstraps (1,000 resamples over the 42 test days, seed 0).
-- The test period was viewed in 3 earlier rounds (baseline_lgbm, lgbm_fe1, lgbm_fe2), each with a model fixed before viewing; the final model is the only new test view in this round.
+- Seeds: LightGBM seed 42 for the single-seed models; early selection runs use 3 seeds and report mean and sd, rounds p4/p5 use 5 seeds. Test CIs in the results table are day-block bootstraps (1,000 resamples over the 42 test days, seed 0). Paired comparisons of the bag models use a paired day-block bootstrap with 7-day blocks (6 over the 42 test days) and 2000 resamples; the selection windows of rounds p4/p5 are 16 days, so each has 3 blocks (7, 7 and 2 days).
+- The test period (days 141-182) has been viewed 6 times: baseline_lgbm, lgbm_fe1, lgbm_fe2, final, final_bag5, final_bag5_refit. Each candidate was fixed before its view. Every other model and arm in this repository was judged on valid or on forward folds only.
+- Protocol: ADR-002 (time split, valid-only choices) up to `final`; ADR-005 (six forward windows, five seeds, paired day-block bootstrap, Holm correction) for rounds p4 and p5.
 - Reproducibility: baseline_lgbm, lgbm_fe1 and lgbm_fe2 retrain to identical best iteration and PR-AUC (243, 118, 2524; `exact: true` for all three in `results/repro/repro.json`).
 
 ## Results
 
-Test PR-AUC and precision at top 1% for all scored models. Sources: `results/final/metrics.json` (CIs, final), `results/baseline_lgbm/metrics.json`, `results/lgbm_fe1/metrics.json`, `results/lgbm_fe2/metrics.json`, `results/baselines/metrics.json`. CIs are 95% day-block bootstrap; "-" means none was computed.
+Test PR-AUC and precision at top 1% for all scored models. Sources: `results/final_bag5_refit/test_view.json`, `results/final_bag5/test_view.json` (bag models), `results/final/metrics.json` (CIs, final), `results/baseline_lgbm/metrics.json`, `results/lgbm_fe1/metrics.json`, `results/lgbm_fe2/metrics.json`, `results/baselines/metrics.json`. CIs are 95% day-block bootstrap; "-" means none was computed. No per-model day-block CI exists in the committed files for the two bag models; their paired deltas are given below.
 
 | Model | What it is | Test PR-AUC | 95% CI | Test precision at top 1% |
 |---|---|---|---|---|
+| final_bag5_refit | 5 seeds of final retrained on train + valid, rank average (final model) | 0.6234 | - | 0.9196 |
+| final_bag5 | 5 seeds of final, rank average | 0.5662 | - | 0.8917 |
 | final | LightGBM, 483 features, nan_keys fix, scale_pos_weight 28 | 0.5605 | 0.5274-0.5903 | 0.8824 |
 | lgbm_fe2 | LightGBM + past-only history features (A_hist) | 0.5628 | 0.5293-0.5932 | 0.8883 |
 | baseline_lgbm | LightGBM on raw features | 0.5232 | 0.4910-0.5544 | 0.8799 |
@@ -48,6 +55,7 @@ Reading:
 - Final vs baseline_lgbm, paired over the same test days: PR-AUC +0.0373, 95% CI 0.0274 to 0.0476 (positive in all resamples). Precision at top 1% differs by +0.0025, CI -0.0126 to 0.0193: not distinguishable.
 - Final vs lgbm_fe2: PR-AUC -0.0023, CI -0.0061 to 0.0016; precision at top 1% -0.0059, CI -0.0145 to 0.0043. Not distinguishable.
 - The NaN-key fix and the class weight did not change ranking quality beyond seed noise (table below).
+- final_bag5 vs final: PR-AUC +0.0056, CI 0.0035 to 0.0076 (`results/final_bag5/test_view.json`). final_bag5_refit vs final_bag5: +0.0572, CI 0.0320 to 0.0891; vs final: +0.0629, CI 0.0380 to 0.0937 (`results/final_bag5_refit/test_view.json`).
 - Linear models are far below boosted trees. Going from fe1 to fe2 (dropping the absolute `day` feature from the history set) is where the history features start to help.
 
 Validation-only experiments (3 seeds, mean +- sd, valid PR-AUC; no test scoring). Sources: `results/lgbm_fe2/metrics.json`, `results/lgbm_fe3_graph/metrics.json`, `results/lgbm_cw/metrics.json`.
@@ -65,9 +73,84 @@ Validation-only experiments (3 seeds, mean +- sd, valid PR-AUC; no test scoring)
 
 All differences are within seed noise. The final configuration follows the pre-registered rule (highest mean valid PR-AUC): A_hist_nanfix with scale_pos_weight 28.
 
+## Final model: final_bag5_refit
+
+Recipe: for each seed 42-46, take the number of boosting rounds B that early stopping found on valid for `final` (`results/final_bag5/final_bag5_s<seed>.json`), retrain the same configuration on train + valid (453,779 rows) for B rounds with no early stopping, score test, and rank-average the five seeds. Source: `results/final_bag5_refit/test_view.json`.
+
+What the gain is, and what it is not: its gain over `final_bag5` is the 14 most recent labelled days that early stopping had held out. A model trained on the same rows as `final` but without a hold-out (`refit_lag14`) ties `final` (+0.0016 mean PR-AUC over windows w2-w6, seed 42; `results/p5/refit_lag14/`, `results/p4/final/`). So this is a recency effect, not evidence that early stopping is wasteful in general. The ranking of the two recipes also holds when labels arrive 14 days later (`refit_lag14` vs `final_lag14`, +0.0431, 95% CI 0.0353 to 0.0486, 5 of 5 windows; `results/p5/stage_b.json`), but both lose about 0.04 PR-AUC in that case (`final_lag14` vs `final`: -0.0415 mean over w2-w6, seed 42; `results/p5/final_lag14/`). The absolute level does not survive the delay; the margin over the incumbent under the same delay does.
+
+Per-seed results (test PR-AUC of each refit seed, `results/final_bag5_refit/test_view.json`, `per_seed`):
+
+| Seed | Rounds B | Test PR-AUC |
+|---|---|---|
+| 42 | 2822 | 0.6233 |
+| 43 | 2826 | 0.6255 |
+| 44 | 2899 | 0.6234 |
+| 45 | 669 | 0.5885 |
+| 46 | 2995 | 0.6257 |
+| rank average | - | 0.6234 |
+
+Seed 45 early-stopped at a plateau after 669 rounds on valid (patience 100); it is kept as pre-registered, in both bags. Early stopping with patience 100 at learning rate 0.05 can stop at a plateau: a bagging recipe tolerates one such seed, a single-seed deployment would not.
+
+Footnote on categorical codes: B per seed comes from `final_bag5`, whose codes were fitted on train; the refit fits its codes on train + valid. Codes use no labels, so this is not leakage; B was chosen with a slightly different vocabulary.
+
+`final_bag5_refit` is used as an uncalibrated ranker: it trains on valid, so there is no held-out set left to fit a calibrator or set cost thresholds. `models/final_bag5_refit_s*/scores_valid.parquet` holds in-sample valid scores and must not be used for selection or calibration.
+
+## Rounds after final
+
+All numbers below are valid or forward-window numbers; none of these arms was scored on test. The only test views after `final` are the two bag models above.
+
+### Rounds imp, graph, GNN, stack, drift pruning (2026-10-16): nothing beat final
+
+- Feature blocks, screened on valid, seed 42 (`results/improve/combine.json`, `results/drift/screen.json` for the drift-pruned versions; delta vs final 0.6950): uid_vagg +0.0028, time_cyclic +0.0025, anomaly_score +0.0022 passed the 0.002 screen gate; amount_patterns -0.0388, graph_emb -0.0472, graph_hop2 -0.0203, identity_velocity -0.0180, graph_hop1 -0.0075 hurt.
+- Confirmation (`results/improve/confirm.json`): the best candidate, LightGBM + uid_vagg, scored 0.6971 vs 0.6961 (+0.0010) on valid, below the rule's threshold of 0.0028 (2 sd, 3 seeds), and above final on 1 of 3 forward folds. XGBoost, CatBoost, the GNN member, the blend and the stack all scored below final on valid and on every fold (stack: 0.6634 valid). Selected: none.
+
+### Round p4 (2026-10-17, ADR-005)
+
+Sources: `results/p4/screen/*.json` (valid, seed 42), `results/p4/confirm.json` (6 windows x 5 seeds), `results/p4/bag_check.json`.
+
+- Screened, valid PR-AUC vs final 0.6950: seg_noid_blend 0.7069, seg_noid 0.7044, email_flags 0.6962, es500 0.6964, prune_identity 0.6900, no_lowcard_all 0.6794, prune_hop2 0.6812, xgb2 0.6721, blend2 0.6693, prune_amount 0.6692, cat2 0.6189.
+- Confirmed (pooled delta over 6 windows, 5 seeds): the no-identity segment blend `seg_noid_blend` +0.0024, 5 of 6 windows, Holm p = 0.0315, passed; es500 +0.0026 in 3 of 6 windows (needs 4), email_flags +0.0010 (Holm p 0.064), seg_noid -0.0040: not selected. The blend's test period stayed closed.
+- Seed bagging: `final_bag5` (rank average of final seeds 42-46) vs single-seed final, +0.0068, 6 of 6 windows, CI 0.0062 to 0.0074 (`results/p4/bag_check.json`); bagged blend vs bag +0.0004, CI -0.0012 to 0.0019, not selected. Selected: `final_bag5`. Its test view (5th): 0.5662 vs 0.5605, paired +0.0056, CI 0.0035 to 0.0076 (`results/final_bag5/test_view.json`).
+
+### Round p5 (2026-10-17 to 2026-10-19)
+
+Sources: `results/p5/stage_a.json`, `results/p5/stage_b.json`, `results/p5/<arm>/<window>_s<seed>/result.json`. Stage A: nine arms on six windows (seeds 42 and 43; solo = arm seed 42 vs final seed 42, mix = rank average of arm and final seed 42 vs final seeds 42 and 43). An arm advances if its solo or mix delta is positive.
+
+| Arm | Solo delta | Windows won (solo) | Mix delta | Windows won (mix) | Advanced |
+|---|---|---|---|---|---|
+| refit_x100 | +0.0567 | 6 | +0.0304 | 6 | yes |
+| fastrp_past | +0.0023 | 3 | +0.0039 | 5 | yes |
+| obj_goss | +0.0022 | 4 | +0.0006 | 3 | yes |
+| prune_gain | +0.0019 | 3 | +0.0005 | 4 | yes |
+| obj_spw1 | +0.0008 | 4 | -0.0001 | 4 | yes |
+| final_jitter | +0.0003 | 3 | -0.0008 | 1 | yes |
+| decay_h45 | -0.0001 | 4 | -0.0012 | 3 | no |
+| uid2 | -0.0010 | 1 | -0.0008 | 3 | no |
+| decay_h90 | -0.0017 | 3 | -0.0016 | 3 | no |
+
+Stage B (paired day-block bootstrap, 7-day blocks, 2000 resamples, Holm; `results/p5/stage_b.json`). Only `refit_x100` was confirmed:
+
+| Contrast | Pooled delta | 95% CI | Windows won |
+|---|---|---|---|
+| refit_x100 bag (5 seeds) vs final bag (5 seeds) | +0.0556 | 0.0489 to 0.0618 | 6 of 6 |
+| final + refit_x100 (10 models) vs final bag of 10 seeds | +0.0305 | 0.0281 to 0.0328 | 6 of 6 |
+| final bag of 10 seeds vs final bag of 5 seeds | +0.0016 | 0.0006 to 0.0021 | 6 of 6 |
+| refit_lag14 vs final_lag14 (labels 14 days later, seed 42, w2-w6) | +0.0431 | 0.0353 to 0.0486 | 5 of 5 |
+
+All four have p < 0.0005 (0 of 2000 resamples).
+
+The five other advanced arms (fastrp_past, obj_goss, prune_gain, obj_spw1, final_jitter) were not confirmed in Stage B: their Stage A gains (+0.0003 to +0.0023, one seed) are at seed-noise level, so they are reported as not confirmed, not as negative. The 6th test view above was then taken for `final_bag5_refit`.
+
+Per-row selection scores are kept locally, not published; the committed `result.json`, `stage_a.json`, `stage_b.json`, `confirm.json`, `bag_check.json` and `test_view.json` carry every reported number.
+
+### Registered but not run
+
+These arms and modules were written and registered for round p5 but never run, and were deleted at close: arms `final_lr02`, `nn_tabm`, `obj_extratrees`, `obj_focal`, `prune_null`, `recent90`, `refit_x115`, `tuned5`; modules `tune.py`, `tune5.py`, `nn_tabm.py`, `bag_curve.py`. Focal-loss objective: not run. `EF_SMOKE_MAX_ROUNDS` and `EF_SMOKE_N_JOBS` exist for subset smoke runs and were unset for every published run.
+
 ## Decision layer
 
-Source for this section: `results/final/metrics.json` (`calibration`, `capacity`, `cost`).
+Computed for the single-seed `final` model (`results/final/metrics.json`), not for `final_bag5_refit`; `final_bag5_refit` is used as an uncalibrated ranker because it trains on valid (no held-out calibration set). Its top-1% and top-5% precision and recall are in the headline. Source for this section: `results/final/metrics.json` (`calibration`, `capacity`, `cost`).
 
 Calibration: raw scores are under-confident (mean 0.0149 on test vs observed 0.0344). Isotonic regression fitted on the first half of valid was chosen over Platt scaling (valid second half: ECE 0.0022 vs 0.0040, Brier 0.0180 vs 0.0182). Test: ECE 0.0031 and Brier 0.0211 (raw: 0.0230 and 0.0236; Platt: 0.0023 and 0.0211).
 
@@ -103,7 +186,7 @@ Cost sensitivity: a held order costs a review fee (2, 5 or 15 currency units) an
 
 ## Explainability
 
-Sources: `results/final/metrics.json` (`shap.top20`), `results/final/top_alerts_reasons.csv`.
+Computed for the single-seed `final` model (`results/final/metrics.json`), not for `final_bag5_refit`; `final_bag5_refit` is used as an uncalibrated ranker because it trains on valid (no held-out calibration set). Sources: `results/final/metrics.json` (`shap.top20`), `results/final/top_alerts_reasons.csv`.
 
 ![SHAP summary](results/final/shap_summary.png)
 
@@ -118,7 +201,7 @@ Governance note (not legal advice):
 
 ## Stability over time
 
-Source: `results/backtest/metrics.json`.
+Computed for the single-seed `final` model (`results/final/metrics.json`, `results/backtest/metrics.json`), not for `final_bag5_refit`; `final_bag5_refit` is used as an uncalibrated ranker because it trains on valid (no held-out calibration set). The label-lag evidence for the final model is the round p5 lag-14 contrast above.
 
 Forward folds: train on days 1 to the fold's train end (the last 14 train days are used for early stopping), score the next 21 days. The raw-feature baseline and the final configuration use the same folds.
 
@@ -172,7 +255,11 @@ Real-data path, not run: ASOS GraphReturns (OSF c793h, CC-BY 4.0). Its label is 
 - Seed noise is about 0.005-0.015 PR-AUC (sd over 3 seeds, table above); differences below that are not evidence.
 - Amounts are currency units; the cost table is relative, not money.
 - IEEE-CIS has no device id, so device/graph features are weak; the PARP section is a design and is not validated.
-- Valid metrics for the final model use full-valid early stopping and are optimistic.
+- Valid metrics for the final model use full-valid early stopping and are optimistic. `final_bag5_refit` has no valid metric at all (valid is in its training set).
+- The test period was viewed 6 times; 0.6234 is a comparative number, not an unbiased absolute estimate.
+- The refit gain is a recency effect (see Final model), and under a 14-day later label arrival both recipes lose about 0.04 PR-AUC.
+- Selection windows have 3 day-blocks each, so the bootstrap CIs rest on few blocks.
+- Seed 45 of the refit bag stopped at 669 rounds (see Final model).
 
 ## How to run
 
@@ -187,10 +274,23 @@ env -u PYTHONPATH PYTHONPATH=src python -m ecommerce_fraud.reproduce       # res
 env -u PYTHONPATH PYTHONPATH=src python -m ecommerce_fraud.baselines       # results/baselines
 env -u PYTHONPATH PYTHONPATH=src python -m ecommerce_fraud.model_fe3       # results/lgbm_fe3_graph
 env -u PYTHONPATH PYTHONPATH=src python -m ecommerce_fraud.model_cw        # results/lgbm_cw
-env -u PYTHONPATH PYTHONPATH=src python -m ecommerce_fraud.final train     # results/final (the single new test view)
+env -u PYTHONPATH PYTHONPATH=src python -m ecommerce_fraud.final train     # results/final (4th test view)
 env -u PYTHONPATH PYTHONPATH=src python -m ecommerce_fraud.final analyze   # calibration, capacity, cost, SHAP, bootstrap
 env -u PYTHONPATH PYTHONPATH=src python -m ecommerce_fraud.backtest        # results/backtest
+# rounds p4 / p5 (need the data and hours of compute; arms in src/ecommerce_fraud/arms/)
+env -u PYTHONPATH PYTHONPATH=src python -m ecommerce_fraud.protocol --screen --arms <a,b>             # results/p4/screen
+env -u PYTHONPATH PYTHONPATH=src python -m ecommerce_fraud.protocol --confirm --arms <a,b>            # 6 windows x 5 seeds
+env -u PYTHONPATH PYTHONPATH=src python -m ecommerce_fraud.protocol --analyze --arms <a,b> --power    # results/p4/confirm.json
+env -u PYTHONPATH PYTHONPATH=src python -m ecommerce_fraud.bag_check                                  # results/p4/bag_check.json
+env -u PYTHONPATH PYTHONPATH=src python -m ecommerce_fraud.final_bag                                  # results/final_bag5 (5th test view)
+env -u PYTHONPATH PYTHONPATH=src python -m ecommerce_fraud.protocol5 --run --arms <a,b> --seeds 42,43  # results/p5/<arm>
+env -u PYTHONPATH PYTHONPATH=src python -m ecommerce_fraud.protocol5 --stage-a --arms <a,b>           # results/p5/stage_a.json
+env -u PYTHONPATH PYTHONPATH=src python -m ecommerce_fraud.protocol5 --make-spec --from <stage_a.json> --out <spec.json>
+env -u PYTHONPATH PYTHONPATH=src python -m ecommerce_fraud.protocol5 --contrasts <spec.json>          # results/p5/stage_b.json
+env -u PYTHONPATH PYTHONPATH=src python -m ecommerce_fraud.final_bag_refit                           # results/final_bag5_refit (6th test view)
 ```
+
+Training commands need the data and time (the final_bag_refit run took 2,505 s, `runtime_seconds` in its `test_view.json`; the p4/p5 rounds took many hours). Per-row selection scores written under `results/p4` and `results/p5` are git-ignored and not published.
 
 `env -u PYTHONPATH` is only needed where the shell exports a conflicting PYTHONPATH. Training runs are heavy (up to about 10 GB RAM for LightGBM); run one at a time.
 

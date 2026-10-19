@@ -1,0 +1,39 @@
+{
+  "arm": "decay_h90",
+  "window": "w6",
+  "seed": 42,
+  "pr_auc": 0.6260469506828055,
+  "metrics": {
+    "pr_auc": 0.6260469506828055,
+    "roc_auc": 0.9224465633857838,
+    "fraud_rate": 0.03633384312868691,
+    "n_rows": 45770,
+    "precision_at_top_1pct": 0.9082969432314411,
+    "recall_at_top_1pct": 0.25015033072760073,
+    "precision_at_top_5pct": 0.47706422018348627,
+    "recall_at_top_5pct": 0.6566446181599519
+  },
+  "best_iteration": null,
+  "hit_max_rounds": null,
+  "seconds": 95.7,
+  "rss_mb": 9313.0,
+  "n_features": 483,
+  "n_fit": 347363,
+  "n_es": 42160,
+  "n_score": 45770,
+  "n_fraud_score": 1663,
+  "score_days": [
+    120,
+    134
+  ],
+  "fit_end_dt": 9763194,
+  "arm_spec": {
+    "name": "decay_h90",
+    "description": "final LightGBM; fit rows weighted 0.5**((max_day-day)/90), mean 1, ES rows unweighted",
+    "model": "custom",
+    "fit": "<callable fit>"
+  },
+  "git_sha": "da8c304cd6a33fbb151de32b8b2c5befb4e445da",
+  "max_rows": null,
+  "max_rounds_override": null
+}

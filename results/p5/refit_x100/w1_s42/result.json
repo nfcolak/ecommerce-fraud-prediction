@@ -1,0 +1,39 @@
+{
+  "arm": "refit_x100",
+  "window": "w1",
+  "seed": 42,
+  "pr_auc": 0.611945109002602,
+  "metrics": {
+    "pr_auc": 0.611945109002602,
+    "roc_auc": 0.9008600913775641,
+    "fraud_rate": 0.03979003305035318,
+    "n_rows": 46293,
+    "precision_at_top_1pct": 0.980561555075594,
+    "recall_at_top_1pct": 0.24647122692725298,
+    "precision_at_top_5pct": 0.4755939524838013,
+    "recall_at_top_5pct": 0.5977198697068404
+  },
+  "best_iteration": null,
+  "hit_max_rounds": null,
+  "seconds": 500.6,
+  "rss_mb": 3493.2,
+  "n_features": 483,
+  "n_fit": 74808,
+  "n_es": 64900,
+  "n_score": 46293,
+  "n_fraud_score": 1842,
+  "score_days": [
+    40,
+    55
+  ],
+  "fit_end_dt": 2851181,
+  "arm_spec": {
+    "name": "refit_x100",
+    "description": "final, then refit on fit+ES rows for best_iteration rounds (x1.00)",
+    "model": "custom",
+    "fit": "<callable fit>"
+  },
+  "git_sha": "da8c304cd6a33fbb151de32b8b2c5befb4e445da",
+  "max_rows": null,
+  "max_rounds_override": null
+}

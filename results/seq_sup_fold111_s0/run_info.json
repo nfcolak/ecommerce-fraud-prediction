@@ -1,0 +1,190 @@
+{
+  "name": "seq_sup_fold111_s0",
+  "mode": "finetune",
+  "seed": 0,
+  "window": "fold:111-131",
+  "fit_end_dt": 8985599,
+  "es_days": 14,
+  "arrays_meta": {
+    "fit_end_dt": 8985599,
+    "corpus": "labeled_only",
+    "L": 31,
+    "n_rows": 590540,
+    "n_fit_rows": 362483,
+    "num_names": [
+      "amt_log",
+      "amt_cents",
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "C5",
+      "C6",
+      "C7",
+      "C8",
+      "C9",
+      "C10",
+      "C11",
+      "C12",
+      "C13",
+      "C14",
+      "D1n",
+      "D2",
+      "D3",
+      "D4n",
+      "D5",
+      "D6",
+      "D7",
+      "D8",
+      "D9",
+      "D10n",
+      "D11",
+      "D12",
+      "D13",
+      "D14",
+      "D15n"
+    ],
+    "cat_names": [
+      "ProductCD",
+      "card1",
+      "card2",
+      "card3",
+      "card4",
+      "card5",
+      "card6",
+      "addr1",
+      "addr2",
+      "P_emaildomain",
+      "R_emaildomain",
+      "M1",
+      "M2",
+      "M3",
+      "M4",
+      "M5",
+      "M6",
+      "M7",
+      "M8",
+      "M9",
+      "DeviceType",
+      "DeviceInfo",
+      "id_30",
+      "id_31",
+      "id_33"
+    ],
+    "cat_caps": {
+      "card1": 2000,
+      "DeviceInfo": 500,
+      "id_30": 300,
+      "id_31": 300,
+      "id_33": 300
+    },
+    "d_relative": [
+      "D1",
+      "D4",
+      "D10",
+      "D15"
+    ],
+    "normalization": "median/IQR on fit window, clip +-10",
+    "history": "uid=make_keys()['uid'], NaN uid component -> no history, dt strictly earlier",
+    "git_sha": "unknown"
+  },
+  "n_pretrain": 362483,
+  "n_finetune": 312574,
+  "n_es": 49909,
+  "n_score": 64877,
+  "finetune_history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.9180064372767031,
+      "es_pr_auc": 0.36856819115878187,
+      "seconds": 16.879936933517456
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.7425024031229268,
+      "es_pr_auc": 0.4032763854795019,
+      "seconds": 16.51777458190918
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.6500704204724506,
+      "es_pr_auc": 0.42696729796228405,
+      "seconds": 16.590025424957275
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.5844487662798439,
+      "es_pr_auc": 0.4313717664662943,
+      "seconds": 16.530027389526367
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.5352699901738198,
+      "es_pr_auc": 0.43405032839181323,
+      "seconds": 16.55219030380249
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.4925192556544846,
+      "es_pr_auc": 0.44862688814248786,
+      "seconds": 16.480282068252563
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.45563774322177847,
+      "es_pr_auc": 0.43990681786733454,
+      "seconds": 16.906186819076538
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.427348601857042,
+      "es_pr_auc": 0.43958681665181737,
+      "seconds": 17.21655511856079
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.4015962320312955,
+      "es_pr_auc": 0.4506042972311871,
+      "seconds": 16.89566969871521
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.3805924533726343,
+      "es_pr_auc": 0.44974612932166014,
+      "seconds": 16.36233639717102
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.3610780822977521,
+      "es_pr_auc": 0.4415548517566639,
+      "seconds": 16.305115222930908
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.3463400846797656,
+      "es_pr_auc": 0.4517843740781764,
+      "seconds": 16.297155618667603
+    },
+    {
+      "epoch": 13,
+      "train_loss": 0.3399423578011444,
+      "es_pr_auc": 0.4466049495984112,
+      "seconds": 16.827625513076782
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.3329705256554816,
+      "es_pr_auc": 0.44385787830821205,
+      "seconds": 17.177098989486694
+    },
+    {
+      "epoch": 15,
+      "train_loss": 0.3318065291915844,
+      "es_pr_auc": 0.44426685514946535,
+      "seconds": 17.110466718673706
+    }
+  ],
+  "device": "cuda (Tesla T4)",
+  "seconds_finetune": 252.28026747703552,
+  "best_epoch": 12
+}

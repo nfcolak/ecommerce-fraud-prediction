@@ -1,0 +1,26 @@
+{
+  "window": "valid",
+  "model": "xgb",
+  "seed": 44,
+  "metrics": {
+    "pr_auc": 0.662190486529123,
+    "roc_auc": 0.9265727704719586,
+    "fraud_rate": 0.04122408803091072,
+    "n_rows": 68067,
+    "precision_at_top_1pct": 0.9265785609397944,
+    "recall_at_top_1pct": 0.22487526728439058,
+    "precision_at_top_5pct": 0.550822561692127,
+    "recall_at_top_5pct": 0.6682109764789737
+  },
+  "best_iteration": 4988,
+  "n_features": 597,
+  "fit_seconds": 306.9,
+  "peak_rss_mb": 10491.0,
+  "blocks": {
+    "uid_vagg": {
+      "load_seconds": 0.1,
+      "build_seconds": 3.6
+    }
+  },
+  "fit_end_dt": 9666972
+}

@@ -1,0 +1,26 @@
+{
+  "window": "valid",
+  "model": "cat",
+  "seed": 42,
+  "metrics": {
+    "pr_auc": 0.610618065366591,
+    "roc_auc": 0.9246145716575114,
+    "fraud_rate": 0.04122408803091072,
+    "n_rows": 68067,
+    "precision_at_top_1pct": 0.9148311306901615,
+    "recall_at_top_1pct": 0.22202423378474698,
+    "precision_at_top_5pct": 0.5079318448883666,
+    "recall_at_top_5pct": 0.6161796151104776
+  },
+  "best_iteration": 536,
+  "n_features": 597,
+  "fit_seconds": 253.6,
+  "peak_rss_mb": 10491.0,
+  "blocks": {
+    "uid_vagg": {
+      "load_seconds": 0.1,
+      "build_seconds": 3.6
+    }
+  },
+  "fit_end_dt": 9666972
+}

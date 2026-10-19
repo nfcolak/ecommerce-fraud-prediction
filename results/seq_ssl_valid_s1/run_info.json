@@ -1,0 +1,228 @@
+{
+  "name": "seq_ssl_valid_s1",
+  "mode": "ssl_finetune",
+  "seed": 1,
+  "window": "valid",
+  "fit_end_dt": 9666972,
+  "es_days": 14,
+  "arrays_meta": {
+    "fit_end_dt": 9666972,
+    "corpus": "labeled_only",
+    "L": 31,
+    "n_rows": 590540,
+    "n_fit_rows": 385712,
+    "num_names": [
+      "amt_log",
+      "amt_cents",
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "C5",
+      "C6",
+      "C7",
+      "C8",
+      "C9",
+      "C10",
+      "C11",
+      "C12",
+      "C13",
+      "C14",
+      "D1n",
+      "D2",
+      "D3",
+      "D4n",
+      "D5",
+      "D6",
+      "D7",
+      "D8",
+      "D9",
+      "D10n",
+      "D11",
+      "D12",
+      "D13",
+      "D14",
+      "D15n"
+    ],
+    "cat_names": [
+      "ProductCD",
+      "card1",
+      "card2",
+      "card3",
+      "card4",
+      "card5",
+      "card6",
+      "addr1",
+      "addr2",
+      "P_emaildomain",
+      "R_emaildomain",
+      "M1",
+      "M2",
+      "M3",
+      "M4",
+      "M5",
+      "M6",
+      "M7",
+      "M8",
+      "M9",
+      "DeviceType",
+      "DeviceInfo",
+      "id_30",
+      "id_31",
+      "id_33"
+    ],
+    "cat_caps": {
+      "card1": 2000,
+      "DeviceInfo": 500,
+      "id_30": 300,
+      "id_31": 300,
+      "id_33": 300
+    },
+    "d_relative": [
+      "D1",
+      "D4",
+      "D10",
+      "D15"
+    ],
+    "normalization": "median/IQR on fit window, clip +-10",
+    "history": "uid=make_keys()['uid'], NaN uid component -> no history, dt strictly earlier",
+    "git_sha": "unknown"
+  },
+  "n_pretrain": 385712,
+  "n_finetune": 343085,
+  "n_es": 42627,
+  "n_score": 68067,
+  "pretrain_log": [
+    {
+      "epoch": 1,
+      "loss": 81.48979522947924,
+      "cat_loss": 28.35393088059969,
+      "num_loss": 53.13586426793106,
+      "seconds": 31.997310161590576
+    },
+    {
+      "epoch": 2,
+      "loss": 44.28192506987473,
+      "cat_loss": 18.689961243687637,
+      "num_loss": 25.591963917254137,
+      "seconds": 30.95562744140625
+    },
+    {
+      "epoch": 3,
+      "loss": 38.91236445884806,
+      "cat_loss": 16.347970613434082,
+      "num_loss": 22.56439391118462,
+      "seconds": 30.758390188217163
+    },
+    {
+      "epoch": 4,
+      "loss": 36.41579921428974,
+      "cat_loss": 15.372271595962484,
+      "num_loss": 21.043527610738334,
+      "seconds": 30.937047481536865
+    },
+    {
+      "epoch": 5,
+      "loss": 35.660117263186834,
+      "cat_loss": 15.069801300210726,
+      "num_loss": 20.590315968035387,
+      "seconds": 30.970634698867798
+    }
+  ],
+  "finetune_history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.991056260963281,
+      "es_pr_auc": 0.35161009729585285,
+      "seconds": 17.74370551109314
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.8459388759164583,
+      "es_pr_auc": 0.4335706355260183,
+      "seconds": 17.844764471054077
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.7760876394098714,
+      "es_pr_auc": 0.45013616739889883,
+      "seconds": 17.849384307861328
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.7285707120207094,
+      "es_pr_auc": 0.46654548363817083,
+      "seconds": 17.91546869277954
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.6917853024566457,
+      "es_pr_auc": 0.480236919803449,
+      "seconds": 17.909512758255005
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.6594880627734321,
+      "es_pr_auc": 0.48498453328914537,
+      "seconds": 17.871765613555908
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.6383962828133788,
+      "es_pr_auc": 0.49298688329428386,
+      "seconds": 17.822108268737793
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.6163823065303621,
+      "es_pr_auc": 0.4962345404711832,
+      "seconds": 17.96586585044861
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.6002744461099306,
+      "es_pr_auc": 0.49635379799149787,
+      "seconds": 17.90077042579651
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.5863221591072423,
+      "es_pr_auc": 0.4995488357224023,
+      "seconds": 17.97200632095337
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.5787988158741167,
+      "es_pr_auc": 0.49901091329252506,
+      "seconds": 17.934162616729736
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.5737714747942629,
+      "es_pr_auc": 0.5006420669527663,
+      "seconds": 17.90091824531555
+    },
+    {
+      "epoch": 13,
+      "train_loss": 0.5664173991729816,
+      "es_pr_auc": 0.4988890985949865,
+      "seconds": 17.96769404411316
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.5661943435136761,
+      "es_pr_auc": 0.4996499827395141,
+      "seconds": 17.96563959121704
+    },
+    {
+      "epoch": 15,
+      "train_loss": 0.5652431411934751,
+      "es_pr_auc": 0.49981404833074666,
+      "seconds": 17.880417823791504
+    }
+  ],
+  "device": "cuda (Tesla T4)",
+  "seconds_pretrain": 157.2131314277649,
+  "seconds_finetune": 268.6269254684448,
+  "best_epoch": 12
+}

@@ -4,7 +4,7 @@ Predict fraudulent e-commerce transactions and returns, with Pickup and Return P
 
 ## Status
 
-Data: IEEE-CIS (Vesta) copy from the Kaggle mirror `lnasiri007/ieeecis-fraud-detection` in `data/raw/ieee-cis/` (git-ignored; set `IEEE_CIS_RAW_DIR` in worktrees). Models on main: `baseline_lgbm`, `lgbm_fe1`, `lgbm_fe2` (best, test PR-AUC 0.5628). The plan for the remaining work lives in ProjectOS `10-Projects/ecommerce-fraud-prediction/Work/2026-10-10 - Plan - Remaining work v2.md`; the evaluation protocol is ADR-002 there.
+Data: IEEE-CIS (Vesta) copy from the Kaggle mirror `lnasiri007/ieeecis-fraud-detection` in `data/raw/ieee-cis/` (git-ignored; set `IEEE_CIS_RAW_DIR` in worktrees). Final model: `final_bag5_refit` (5 seeds retrained on train + valid; test PR-AUC 0.6234, 6th test view, comparative; `results/final_bag5_refit/test_view.json`). Older models (`baseline_lgbm`, `lgbm_fe1`, `lgbm_fe2`, `final`, `final_bag5`) stay in the README history table. Project closed 2026-10-19. The plan for the last round lives in ProjectOS `10-Projects/ecommerce-fraud-prediction/Work/2026-10-17 - Plan - Round p5.md` (earlier plan: `Work/2026-10-10 - Plan - Remaining work v2.md`); the evaluation protocols are ADR-002 (time split, valid-only choices) and ADR-005 (six forward windows, five seeds, paired day-block bootstrap, Holm) there.
 
 ## Layout
 
@@ -21,11 +21,11 @@ Data: IEEE-CIS (Vesta) copy from the Kaggle mirror `lnasiri007/ieeecis-fraud-det
 | Rule | Why |
 |---|---|
 | Split by time with `data.time_split` (train / valid / 7-day gap / test); fit preprocessing on train only. | No leakage; honest fraud numbers. |
-| Every choice (features, parameters, threshold, calibration) is made on valid or on forward folds before the test period. Test is scored once per final model; intermediate candidates report valid only. | The test period was already viewed in 3 rounds (baseline, fe1, fe2). |
+| Every choice (features, parameters, threshold, calibration) is made on valid or on forward folds before the test period. Test is scored once per final model; intermediate candidates report valid only. | The test period was viewed 6 times (baseline_lgbm, lgbm_fe1, lgbm_fe2, final, final_bag5, final_bag5_refit); any further look needs a new protocol decision first. |
 | No absolute-time features (`TransactionDT`, day index, all-time counts on low-cardinality keys). History features use strictly earlier rows only and no labels. | Test days lie outside the training range. |
 | Report PR-AUC and precision at top-k, never accuracy alone; give seed sd or bootstrap CIs with comparisons. | Imbalanced classes; small differences are noise. |
 | Earlier `results/<model>/` files stay byte-identical; new work adds new model names. | Comparability. |
-| Save boosters and per-row valid/test scores to `models/<model>/` for every trained model. | Re-scoring without retraining. |
+| Save boosters and per-row valid/test scores to `models/<model>/` for every trained model. Exception: the round p4/p5 runner wrote per-row selection scores to `results/p4/**/scores.parquet` and `results/p5/**/scores.parquet`; they are git-ignored, kept locally and not published (the committed `result.json`, `stage_a.json`, `stage_b.json`, `confirm.json`, `bag_check.json` and `test_view.json` carry every reported number). | Re-scoring without retraining. |
 | Every result number in README comes from a committed file under `results/`. | Evidence. |
 | Data download and training need user approval first. | User rule. |
 | No notes in this repo: only `AGENTS.md` and `README.md`. Plans and decisions go to ProjectOS `10-Projects/ecommerce-fraud-prediction/`, rules to Jev-Mem `Notes/ecommerce-fraud-prediction/`. | User rule. |

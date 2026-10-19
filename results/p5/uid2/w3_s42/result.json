@@ -1,0 +1,40 @@
+{
+  "arm": "uid2",
+  "window": "w3",
+  "seed": 42,
+  "pr_auc": 0.5973768493440358,
+  "metrics": {
+    "pr_auc": 0.5973768493440358,
+    "roc_auc": 0.9005535082334304,
+    "fraud_rate": 0.03891092292850252,
+    "n_rows": 46645,
+    "precision_at_top_1pct": 0.9528907922912205,
+    "recall_at_top_1pct": 0.24517906336088155,
+    "precision_at_top_5pct": 0.4654950707243892,
+    "recall_at_top_5pct": 0.5983471074380166
+  },
+  "best_iteration": 1804,
+  "hit_max_rounds": false,
+  "seconds": 163.7,
+  "rss_mb": 9313.0,
+  "n_features": 515,
+  "n_fit": 196024,
+  "n_es": 42174,
+  "n_score": 46645,
+  "n_fraud_score": 1815,
+  "score_days": [
+    72,
+    87
+  ],
+  "fit_end_dt": 5615993,
+  "arm_spec": {
+    "name": "uid2",
+    "description": "final + 32 past-only features on card1..6/addr1/D1n, card1/addr1/D15n, card1/D1n, uid keys (uid2 block)",
+    "blocks": [
+      "uid2"
+    ]
+  },
+  "git_sha": "da8c304cd6a33fbb151de32b8b2c5befb4e445da",
+  "max_rows": null,
+  "max_rounds_override": null
+}

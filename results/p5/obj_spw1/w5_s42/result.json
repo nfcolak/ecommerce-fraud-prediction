@@ -1,0 +1,40 @@
+{
+  "arm": "obj_spw1",
+  "window": "w5",
+  "seed": 42,
+  "pr_auc": 0.6135386137102824,
+  "metrics": {
+    "pr_auc": 0.6135386137102824,
+    "roc_auc": 0.9096968017932121,
+    "fraud_rate": 0.0452637266719315,
+    "n_rows": 48118,
+    "precision_at_top_1pct": 0.9481327800829875,
+    "recall_at_top_1pct": 0.2098255280073462,
+    "precision_at_top_5pct": 0.5324189526184538,
+    "recall_at_top_5pct": 0.5881542699724518
+  },
+  "best_iteration": 1115,
+  "hit_max_rounds": false,
+  "seconds": 225.4,
+  "rss_mb": 9313.0,
+  "n_features": 483,
+  "n_fit": 291259,
+  "n_es": 49336,
+  "n_score": 48118,
+  "n_fraud_score": 2178,
+  "score_days": [
+    104,
+    119
+  ],
+  "fit_end_dt": 8380788,
+  "arm_spec": {
+    "name": "obj_spw1",
+    "description": "final with scale_pos_weight 1 (unweighted logloss)",
+    "params": {
+      "scale_pos_weight": 1.0
+    }
+  },
+  "git_sha": "da8c304cd6a33fbb151de32b8b2c5befb4e445da",
+  "max_rows": null,
+  "max_rounds_override": null
+}

@@ -1,0 +1,39 @@
+{
+  "name": "hawkes_burst",
+  "description": "Exponentially decayed count of earlier events (1h/1d/7d half-life) per uid/card1/DeviceInfo/P_emaildomain, plus decayed uid amount",
+  "uses_labels": false,
+  "fit_end_dt": 9666972,
+  "git_sha": "a15531d3186e922114b762b93f2f61f3557549e8",
+  "max_rounds": 5000,
+  "max_rows": null,
+  "seed": 42,
+  "valid": {
+    "pr_auc": 0.6917851090838187,
+    "roc_auc": 0.9355418605720723,
+    "fraud_rate": 0.04122408803091072,
+    "n_rows": 68067,
+    "precision_at_top_1pct": 0.920704845814978,
+    "recall_at_top_1pct": 0.22344975053456878,
+    "precision_at_top_5pct": 0.5687426556991775,
+    "recall_at_top_5pct": 0.6899501069137562
+  },
+  "best_iteration": 2909,
+  "n_features": 498,
+  "n_block_features": 15,
+  "fit_seconds": 294.8,
+  "block_load_seconds": 2.0,
+  "blocks": {
+    "hawkes_burst": {
+      "load_seconds": 1.9,
+      "build_seconds": 1.6
+    }
+  },
+  "hit_max_rounds": false,
+  "peak_rss_mb": 4458.9,
+  "valid_pr_auc": 0.6917851090838187,
+  "reference_pr_auc": 0.6949933428746624,
+  "delta_vs_final": -0.003208233790843673,
+  "block_build_seconds": {
+    "hawkes_burst": 1.6
+  }
+}

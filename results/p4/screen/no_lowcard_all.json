@@ -1,0 +1,26 @@
+{
+  "arm": "no_lowcard_all",
+  "description": "final minus all-time count/amount stats of P_emaildomain (cnt_all, amt_mean, amt_std, amt_ratio)",
+  "seed": 42,
+  "max_rows": null,
+  "max_rounds": null,
+  "valid_pr_auc": 0.6793999195342842,
+  "best_iteration": 1399,
+  "hit_max_rounds": false,
+  "n_features": 479,
+  "seconds": 167.3,
+  "rss_mb": 7946.0,
+  "git_sha": "8e1098746c905013150c43cc2f235d8bc495adf6",
+  "arm_spec": {
+    "name": "no_lowcard_all",
+    "description": "final minus all-time count/amount stats of P_emaildomain (cnt_all, amt_mean, amt_std, amt_ratio)",
+    "drop_cols": [
+      "P_emaildomain_cnt_all",
+      "P_emaildomain_amt_mean",
+      "P_emaildomain_amt_std",
+      "P_emaildomain_amt_ratio"
+    ]
+  },
+  "reference_pr_auc": 0.6949933428746624,
+  "delta_vs_final": -0.015593423340378165
+}

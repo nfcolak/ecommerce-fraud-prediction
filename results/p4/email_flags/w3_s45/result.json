@@ -1,0 +1,40 @@
+{
+  "arm": "email_flags",
+  "window": "w3",
+  "seed": 45,
+  "pr_auc": 0.5966021598610738,
+  "metrics": {
+    "pr_auc": 0.5966021598610738,
+    "roc_auc": 0.8987317991629229,
+    "fraud_rate": 0.03891092292850252,
+    "n_rows": 46645,
+    "precision_at_top_1pct": 0.9593147751605996,
+    "recall_at_top_1pct": 0.24683195592286503,
+    "precision_at_top_5pct": 0.4612087441063009,
+    "recall_at_top_5pct": 0.5928374655647383
+  },
+  "best_iteration": 1679,
+  "hit_max_rounds": false,
+  "seconds": 138.0,
+  "rss_mb": 6348.1,
+  "n_features": 490,
+  "n_fit": 196024,
+  "n_es": 42174,
+  "n_score": 46645,
+  "n_fraud_score": 1815,
+  "score_days": [
+    72,
+    87
+  ],
+  "fit_end_dt": 5615993,
+  "arm_spec": {
+    "name": "email_flags",
+    "description": "final + 7 row-level P/R e-mail consistency flags (P==R, one missing, same family other TLD, free-mail)",
+    "blocks": [
+      "email_flags"
+    ]
+  },
+  "git_sha": "8e1098746c905013150c43cc2f235d8bc495adf6",
+  "max_rows": null,
+  "max_rounds_override": null
+}

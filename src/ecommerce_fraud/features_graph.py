@@ -83,7 +83,6 @@ def _component_sizes(uid, fp, day) -> np.ndarray:
     """uid_fp_component_size: for a row on day d, the number of distinct uids in the connected
     component of its uid in the uid--fp graph built from edges of days < d, where fp nodes
     linking more than HUB_CAP distinct uids in those edges are removed. 1 if no usable edge."""
-    n = len(uid)
     n_uid, n_fp = int(uid.max()) + 1, int(fp.max()) + 1
     ok = (fp >= 0) & (uid >= 0)
     pairs = pd.DataFrame({"u": uid[ok], "f": fp[ok], "d": day[ok]})

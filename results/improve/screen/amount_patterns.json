@@ -1,0 +1,39 @@
+{
+  "name": "amount_patterns",
+  "description": "Amount cents/decimals/roundness, uid log-amount z-score and rank, repeat same-amount counts, ratio to card1 median",
+  "uses_labels": false,
+  "fit_end_dt": 9666972,
+  "git_sha": "a15531d3186e922114b762b93f2f61f3557549e8",
+  "max_rounds": 5000,
+  "max_rows": null,
+  "seed": 42,
+  "valid": {
+    "pr_auc": 0.6562288905981817,
+    "roc_auc": 0.9344839450141226,
+    "fraud_rate": 0.04122408803091072,
+    "n_rows": 68067,
+    "precision_at_top_1pct": 0.9118942731277533,
+    "recall_at_top_1pct": 0.22131147540983606,
+    "precision_at_top_5pct": 0.5417156286721504,
+    "recall_at_top_5pct": 0.6571632216678546
+  },
+  "best_iteration": 572,
+  "n_features": 495,
+  "n_block_features": 12,
+  "fit_seconds": 64.2,
+  "block_load_seconds": 2.1,
+  "blocks": {
+    "amount_patterns": {
+      "load_seconds": 2.1,
+      "build_seconds": 1.9
+    }
+  },
+  "hit_max_rounds": false,
+  "peak_rss_mb": 7181.9,
+  "valid_pr_auc": 0.6562288905981817,
+  "reference_pr_auc": 0.6949933428746624,
+  "delta_vs_final": -0.03876445227648073,
+  "block_build_seconds": {
+    "amount_patterns": 1.9
+  }
+}

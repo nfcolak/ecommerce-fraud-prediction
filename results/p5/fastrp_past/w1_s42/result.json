@@ -1,0 +1,40 @@
+{
+  "arm": "fastrp_past",
+  "window": "w1",
+  "seed": 42,
+  "pr_auc": 0.5222528288276851,
+  "metrics": {
+    "pr_auc": 0.5222528288276851,
+    "roc_auc": 0.8685497268631703,
+    "fraud_rate": 0.03979003305035318,
+    "n_rows": 46293,
+    "precision_at_top_1pct": 0.9546436285097192,
+    "recall_at_top_1pct": 0.23995656894679696,
+    "precision_at_top_5pct": 0.4168466522678186,
+    "recall_at_top_5pct": 0.5238870792616721
+  },
+  "best_iteration": 874,
+  "hit_max_rounds": false,
+  "seconds": 282.6,
+  "rss_mb": 3493.2,
+  "n_features": 515,
+  "n_fit": 74808,
+  "n_es": 64900,
+  "n_score": 46293,
+  "n_fraud_score": 1842,
+  "score_days": [
+    40,
+    55
+  ],
+  "fit_end_dt": 2851181,
+  "arm_spec": {
+    "name": "fastrp_past",
+    "description": "final + fastrp_past block (2x16 past-only random-projection entity embedding, no labels)",
+    "blocks": [
+      "fastrp_past"
+    ]
+  },
+  "git_sha": "da8c304cd6a33fbb151de32b8b2c5befb4e445da",
+  "max_rows": null,
+  "max_rounds_override": null
+}

@@ -1,0 +1,161 @@
+{
+  "n_features": 786,
+  "early_end_day": 88,
+  "n_sample": 60000,
+  "share_above": {
+    "0.7": {
+      "amount_patterns": 0.0,
+      "anomaly_score": 0.0,
+      "d_norm_all": 0.14814814814814814,
+      "final": 0.018633540372670808,
+      "freq_enc": 0.75,
+      "graph_emb": 0.0,
+      "graph_hop1": 0.15,
+      "graph_hop2": 0.0,
+      "hawkes_burst": 0.06666666666666667,
+      "identity_velocity": 0.0,
+      "time_cyclic": 0.0,
+      "uid_vagg": 0.0
+    },
+    "0.6": {
+      "amount_patterns": 0.0,
+      "anomaly_score": 0.3333333333333333,
+      "d_norm_all": 0.25925925925925924,
+      "final": 0.08488612836438923,
+      "freq_enc": 1.0,
+      "graph_emb": 0.0,
+      "graph_hop1": 0.475,
+      "graph_hop2": 0.0,
+      "hawkes_burst": 0.2,
+      "identity_velocity": 0.3333333333333333,
+      "time_cyclic": 0.21428571428571427,
+      "uid_vagg": 0.043859649122807015
+    }
+  },
+  "count_above": {
+    "0.7": 32,
+    "0.6": 101
+  },
+  "top20": [
+    {
+      "feature": "freq_enc__id_33",
+      "owner": "freq_enc",
+      "drift_train": 0.9909138969252028,
+      "drift_train_vs_valid_info": 0.9993667491247161
+    },
+    {
+      "feature": "freq_enc__id_30",
+      "owner": "freq_enc",
+      "drift_train": 0.990724249403553,
+      "drift_train_vs_valid_info": 0.9995541396616483
+    },
+    {
+      "feature": "freq_enc__DeviceInfo",
+      "owner": "freq_enc",
+      "drift_train": 0.990021175171026,
+      "drift_train_vs_valid_info": 0.9978585570905107
+    },
+    {
+      "feature": "freq_enc__card5",
+      "owner": "freq_enc",
+      "drift_train": 0.9886694884160676,
+      "drift_train_vs_valid_info": 0.9990260008155127
+    },
+    {
+      "feature": "freq_enc__R_emaildomain",
+      "owner": "freq_enc",
+      "drift_train": 0.9879908728665682,
+      "drift_train_vs_valid_info": 0.9994866097723438
+    },
+    {
+      "feature": "freq_enc__id_31",
+      "owner": "freq_enc",
+      "drift_train": 0.9857147256134868,
+      "drift_train_vs_valid_info": 0.9988459268227204
+    },
+    {
+      "feature": "graph_hop1__card1_age_d",
+      "owner": "graph_hop1",
+      "drift_train": 0.9819621178840574,
+      "drift_train_vs_valid_info": 0.9847851939476442
+    },
+    {
+      "feature": "freq_enc__addr2",
+      "owner": "freq_enc",
+      "drift_train": 0.9782560511363331,
+      "drift_train_vs_valid_info": 0.9999629700834559
+    },
+    {
+      "feature": "freq_enc__P_emaildomain",
+      "owner": "freq_enc",
+      "drift_train": 0.968848388821029,
+      "drift_train_vs_valid_info": 0.9946542236285553
+    },
+    {
+      "feature": "P_emaildomain_amt_mean",
+      "owner": "final",
+      "drift_train": 0.9394824113053815,
+      "drift_train_vs_valid_info": 0.93984553101515
+    },
+    {
+      "feature": "graph_hop1__P_emaildomain_amt_mean",
+      "owner": "graph_hop1",
+      "drift_train": 0.9394824113053815,
+      "drift_train_vs_valid_info": 0.93984553101515
+    },
+    {
+      "feature": "P_emaildomain_cnt_30d",
+      "owner": "final",
+      "drift_train": 0.9350195725515714,
+      "drift_train_vs_valid_info": 0.901866104925005
+    },
+    {
+      "feature": "freq_enc__card3",
+      "owner": "freq_enc",
+      "drift_train": 0.9304126355775364,
+      "drift_train_vs_valid_info": 0.9996839414342239
+    },
+    {
+      "feature": "graph_hop1__P_emaildomain_amt_std",
+      "owner": "graph_hop1",
+      "drift_train": 0.9297403249919579,
+      "drift_train_vs_valid_info": 0.9397857825546652
+    },
+    {
+      "feature": "P_emaildomain_amt_std",
+      "owner": "final",
+      "drift_train": 0.9296945462884615,
+      "drift_train_vs_valid_info": 0.939695555126911
+    },
+    {
+      "feature": "P_emaildomain_cnt_all",
+      "owner": "final",
+      "drift_train": 0.9014855910104583,
+      "drift_train_vs_valid_info": 0.921261213164962
+    },
+    {
+      "feature": "freq_enc__addr1",
+      "owner": "freq_enc",
+      "drift_train": 0.8958735683837592,
+      "drift_train_vs_valid_info": 0.9870935398543668
+    },
+    {
+      "feature": "D1n",
+      "owner": "final",
+      "drift_train": 0.8565028419467332,
+      "drift_train_vs_valid_info": 0.833392367054352
+    },
+    {
+      "feature": "freq_enc__card2",
+      "owner": "freq_enc",
+      "drift_train": 0.8383227681352514,
+      "drift_train_vs_valid_info": 0.9454657159333849
+    },
+    {
+      "feature": "hawkes_burst__email_cnt_7d",
+      "owner": "hawkes_burst",
+      "drift_train": 0.8294422397191771,
+      "drift_train_vs_valid_info": 0.8309827746815794
+    }
+  ]
+}

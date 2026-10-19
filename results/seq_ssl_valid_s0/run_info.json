@@ -1,0 +1,192 @@
+{
+  "name": "seq_ssl_valid_s0",
+  "mode": "ssl_finetune",
+  "seed": 0,
+  "window": "valid",
+  "fit_end_dt": 9666972,
+  "es_days": 14,
+  "arrays_meta": {
+    "fit_end_dt": 9666972,
+    "corpus": "labeled_only",
+    "L": 31,
+    "n_rows": 590540,
+    "n_fit_rows": 385712,
+    "num_names": [
+      "amt_log",
+      "amt_cents",
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "C5",
+      "C6",
+      "C7",
+      "C8",
+      "C9",
+      "C10",
+      "C11",
+      "C12",
+      "C13",
+      "C14",
+      "D1n",
+      "D2",
+      "D3",
+      "D4n",
+      "D5",
+      "D6",
+      "D7",
+      "D8",
+      "D9",
+      "D10n",
+      "D11",
+      "D12",
+      "D13",
+      "D14",
+      "D15n"
+    ],
+    "cat_names": [
+      "ProductCD",
+      "card1",
+      "card2",
+      "card3",
+      "card4",
+      "card5",
+      "card6",
+      "addr1",
+      "addr2",
+      "P_emaildomain",
+      "R_emaildomain",
+      "M1",
+      "M2",
+      "M3",
+      "M4",
+      "M5",
+      "M6",
+      "M7",
+      "M8",
+      "M9",
+      "DeviceType",
+      "DeviceInfo",
+      "id_30",
+      "id_31",
+      "id_33"
+    ],
+    "cat_caps": {
+      "card1": 2000,
+      "DeviceInfo": 500,
+      "id_30": 300,
+      "id_31": 300,
+      "id_33": 300
+    },
+    "d_relative": [
+      "D1",
+      "D4",
+      "D10",
+      "D15"
+    ],
+    "normalization": "median/IQR on fit window, clip +-10",
+    "history": "uid=make_keys()['uid'], NaN uid component -> no history, dt strictly earlier",
+    "git_sha": "unknown"
+  },
+  "n_pretrain": 385712,
+  "n_finetune": 343085,
+  "n_es": 42627,
+  "n_score": 68067,
+  "pretrain_log": [
+    {
+      "epoch": 1,
+      "loss": 80.73932390693645,
+      "cat_loss": 27.871751668914875,
+      "num_loss": 52.86757210648028,
+      "seconds": 32.740708351135254
+    },
+    {
+      "epoch": 2,
+      "loss": 44.969515388144735,
+      "cat_loss": 18.74887461877312,
+      "num_loss": 26.220640840201543,
+      "seconds": 31.5988929271698
+    },
+    {
+      "epoch": 3,
+      "loss": 38.73229030841858,
+      "cat_loss": 16.249066054346706,
+      "num_loss": 22.483224183241948,
+      "seconds": 31.350972652435303
+    },
+    {
+      "epoch": 4,
+      "loss": 36.90322094317773,
+      "cat_loss": 15.271541190716569,
+      "num_loss": 21.631679694279434,
+      "seconds": 31.406488180160522
+    },
+    {
+      "epoch": 5,
+      "loss": 36.19218427116738,
+      "cat_loss": 14.992274008632023,
+      "num_loss": 21.19991027265392,
+      "seconds": 31.426090955734253
+    }
+  ],
+  "finetune_history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.9890752193473634,
+      "es_pr_auc": 0.3562120866946954,
+      "seconds": 17.923764944076538
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.8509014401407469,
+      "es_pr_auc": 0.4275462616833452,
+      "seconds": 17.94688844680786
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.7853857172386987,
+      "es_pr_auc": 0.457508350945338,
+      "seconds": 17.93258261680603
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.7382356696540401,
+      "es_pr_auc": 0.4777585693884442,
+      "seconds": 17.909724235534668
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.7032192632378567,
+      "es_pr_auc": 0.4898856986250995,
+      "seconds": 17.83269691467285
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.6783573508617424,
+      "es_pr_auc": 0.4899219807412438,
+      "seconds": 17.824238538742065
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.6491023758869796,
+      "es_pr_auc": 0.4891700062947933,
+      "seconds": 17.885529041290283
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.6302945157069535,
+      "es_pr_auc": 0.4856133948609254,
+      "seconds": 17.878442525863647
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.6116218360229617,
+      "es_pr_auc": 0.4839484230283678,
+      "seconds": 17.90743851661682
+    }
+  ],
+  "device": "cuda (Tesla T4)",
+  "seconds_pretrain": 160.23360586166382,
+  "seconds_finetune": 161.15318846702576,
+  "best_epoch": 6
+}

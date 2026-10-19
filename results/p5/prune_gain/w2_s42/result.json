@@ -1,0 +1,39 @@
+{
+  "arm": "prune_gain",
+  "window": "w2",
+  "seed": 42,
+  "pr_auc": 0.6023293285367409,
+  "metrics": {
+    "pr_auc": 0.6023293285367409,
+    "roc_auc": 0.8894649853606648,
+    "fraud_rate": 0.044640358242373356,
+    "n_rows": 50022,
+    "precision_at_top_1pct": 0.9820359281437125,
+    "recall_at_top_1pct": 0.22033139274518584,
+    "precision_at_top_5pct": 0.518784972022382,
+    "recall_at_top_5pct": 0.5812807881773399
+  },
+  "best_iteration": null,
+  "hit_max_rounds": null,
+  "seconds": 157.8,
+  "rss_mb": 8397.5,
+  "n_features": 483,
+  "n_fit": 147375,
+  "n_es": 42260,
+  "n_score": 50022,
+  "n_fraud_score": 2233,
+  "score_days": [
+    56,
+    71
+  ],
+  "fit_end_dt": 4233594,
+  "arm_spec": {
+    "name": "prune_gain",
+    "description": "drop zero-gain and bottom-20% gain features of one stage-1 model (fit/ES rows only), then final LightGBM",
+    "model": "custom",
+    "fit": "<callable fit_prune_gain>"
+  },
+  "git_sha": "da8c304cd6a33fbb151de32b8b2c5befb4e445da",
+  "max_rows": null,
+  "max_rounds_override": null
+}

@@ -1,0 +1,22 @@
+{
+  "arm": "seg_noid_blend",
+  "description": "seg_noid with no-identity rows = mean of calibrated global and segment probabilities",
+  "seed": 42,
+  "max_rows": null,
+  "max_rounds": null,
+  "valid_pr_auc": 0.7068947328885878,
+  "best_iteration": null,
+  "hit_max_rounds": null,
+  "n_features": 483,
+  "seconds": 495.1,
+  "rss_mb": 7946.0,
+  "git_sha": "8e1098746c905013150c43cc2f235d8bc495adf6",
+  "arm_spec": {
+    "name": "seg_noid_blend",
+    "description": "seg_noid with no-identity rows = mean of calibrated global and segment probabilities",
+    "model": "custom",
+    "fit": "<callable fit_seg_noid_blend>"
+  },
+  "reference_pr_auc": 0.6949933428746624,
+  "delta_vs_final": 0.011901390013925428
+}

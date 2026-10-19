@@ -1,0 +1,39 @@
+{
+  "name": "freq_enc",
+  "description": "Causal frequency encodings (fit-window counts; expanding for in-window rows)",
+  "uses_labels": false,
+  "fit_end_dt": 9666972,
+  "git_sha": "a15531d3186e922114b762b93f2f61f3557549e8",
+  "max_rounds": 5000,
+  "max_rows": null,
+  "seed": 42,
+  "valid": {
+    "pr_auc": 0.6683135502339553,
+    "roc_auc": 0.9349633239229772,
+    "fraud_rate": 0.04122408803091072,
+    "n_rows": 68067,
+    "precision_at_top_1pct": 0.9162995594713657,
+    "recall_at_top_1pct": 0.22238061297220243,
+    "precision_at_top_5pct": 0.5440658049353702,
+    "recall_at_top_5pct": 0.6600142551674982
+  },
+  "best_iteration": 1116,
+  "n_features": 499,
+  "n_block_features": 16,
+  "fit_seconds": 153.9,
+  "block_load_seconds": 2.1,
+  "blocks": {
+    "freq_enc": {
+      "load_seconds": 2.0,
+      "build_seconds": 1.8
+    }
+  },
+  "hit_max_rounds": false,
+  "peak_rss_mb": 7181.9,
+  "valid_pr_auc": 0.6683135502339553,
+  "reference_pr_auc": 0.6949933428746624,
+  "delta_vs_final": -0.02667979264070708,
+  "block_build_seconds": {
+    "freq_enc": 1.8
+  }
+}
